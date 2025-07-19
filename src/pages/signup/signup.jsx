@@ -16,7 +16,7 @@ function Signup() {
   
         <div className={styles.login}>
           <div className={styles.ii} style={{ textAlign: "left", marginLeft: "20px" }}>
-            <Link to="/" style={{ cursor: "pointer" }}>
+            <Link to="/code" style={{ cursor: "pointer" }}>
               <i className="fas fa-home" style={{ color: "black" }}></i>
             </Link>
           </div>
