@@ -1,0 +1,200 @@
+.body{
+   margin: 0;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #1F2937;
+  color: black;
+  overflow: hidden;
+  position: relative;
+  z-index: 0;
+
+}
+.container{
+  border: 2px solid #FBBF24;
+  height: 500px;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  border-radius: 30px;
+  border-color: #FBBF24;
+  box-shadow: 3px 2px 70px #FBBF24;
+  background-color: #d3d3d3;
+}
+.conf{
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+
+border-color: #FBBF24;
+box-shadow: 3px 2px 70px #FBBF24;
+background-color: #D4C0AE;
+border: 2px solid #FBBF24;
+width: 400px;
+height: 300px;
+}
+.conf input{
+  width: 300px;
+  margin: 10px 20px 0px;
+  height: 30px;
+  padding-left: 20px;
+}
+.conf button{
+margin-top: 20px;
+}
+.container h1{
+  margin: 50px 0 30px;
+  font-weight: 3rem;
+  color: #FBBF24;
+  
+}
+.up{
+  font-size: large;
+}
+
+.email input:focus{
+  outline: #FBBF24;
+  border-color: #FBBF24;
+  box-shadow: 2px 2px 20px #FBBF24;
+}
+.mail{
+  display: inline;
+  text-align: left;
+  margin-left: 50px;
+  margin-bottom: 20px;
+}
+.mail input, .mail label{
+  cursor: pointer;
+
+}
+.mail input:focus{
+    box-shadow: none;
+}
+
+
+.all{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  margin-top: 40px;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 20px;
+}
+.email{
+  width: 300px;
+}
+.email input{  
+  height: 37px;
+  width: 90%;
+  padding-left: 20px;
+  border-radius: 20px;
+  color: black;
+  background-color: white;
+  outline: #FBBF24;
+  border: 3px solid grey;
+}
+.but{
+  height: 30px;
+  width: 80px;
+  border-radius: 5px;
+  background-color: #FBBF24;
+  cursor: pointer;
+  font-size: medium;
+  color: white;
+  margin: 0;
+}
+
+a{
+  text-align: left;
+}
+a:active {
+  color: white;
+}
+a:hover{
+  opacity: 0.6;
+}
+.c1{
+  height: 100px;
+  width: 100px;
+  background-color: #FBBF24;
+  border-radius: 100px;
+  animation: move 80s infinite ;
+  z-index: -1;
+  position: absolute;
+  top: 40px;
+  left:-100px;
+
+}
+@keyframes move {
+  from{
+      transform: translate(0,0);
+  }
+  to {
+      transform: translate(1700px,-50px);
+  }
+}
+@keyframes movec {
+  0%{
+      transform: translate(0,-5px);
+  }
+  50%{
+      transform: translate(0px,5px);
+  }
+  100%{
+      transform: translate(0,-5px);
+  }
+}
+.c2{
+  height: 40px;
+  width: 40px;
+  background-color: #FBBF24;
+  border-radius: 100px;
+  animation: move 200s infinite ;
+  z-index: -1;
+  position: absolute;
+  top: 200px;
+  left:-100px;
+  
+}
+.c3{
+  height: 60px;
+  width: 60px;
+  background-color: #FBBF24;
+  border-radius: 100px;
+  animation: move 80s infinite ;
+  z-index: -1;
+  position: absolute;
+  top: 350px;
+  left:-100px;
+  animation-delay: 14s;
+}
+.c4{
+  height: 50px;
+  width: 50px;
+  background-color: #FBBF24;
+  border-radius: 100px;
+  animation: move 90s infinite ;
+  z-index: -1;
+  position: absolute;
+  top: 500px;
+  left:-100px;
+  animation-delay: 29s;
+}
+.c5{
+  height: 100px;
+  width: 100px;
+  background-color: #FBBF24;
+  border-radius: 100px;
+  animation: move 100s infinite ;
+  z-index: -1;
+  position: absolute;
+  top: 600px;
+  left:-100px;
+  animation-delay: 7s;
+}
+
