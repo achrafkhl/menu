@@ -2,6 +2,7 @@ import supabase from "../../config/supabaseClient";
 import { useState,useEffect } from "react";
 import styles from "./code.module.css";
 import Menu from "./menu";
+import image from "../../assets/mr-removebg-preview (4).png"
 function Code() {
     const [cat,setCat]= useState("");
     useEffect(()=>{
@@ -23,19 +24,22 @@ function Code() {
     },[])
     return(
         <div className={styles.body}>
-            <h3>img+name</h3>
-            <h1>MENU:</h1>
-
-        
+            <div className={styles['header-center']}>
+                <div className={styles.inside}>
+                    <img src={image} alt="MR YUMMY" />
+                    <h3>MR YUMMY</h3>
+                </div>
+                <h1>MENU:</h1>
+            </div>
             {cat.length>0 ? (
-                            <div className={styles.menu}>
-                                {cat.map(cats=>(
-                            <Menu key={cats.id} cats={cats} />
-                        ))}
-                            </div>
-                        ) : (
-                    <h2>No menu found.</h2>
-                )}
+                <div className={styles.menu}>
+                    {cat.map(cats=>(
+                        <Menu key={cats.id} cats={cats} />
+                    ))}
+                </div>
+            ) : (
+                <h2>No menu found.</h2>
+            )}
         </div>
     )
 }
