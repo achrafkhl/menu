@@ -161,7 +161,9 @@ window.location.href = "/login";
           </div>
   
           <div className={styles.user_photo}>
+            <label className={styles.fileLabel} htmlFor="catphoto">Enter your logo</label>
             <input className={styles.catphoto} id="catphoto" type="file" onChange={(e) => setFile(e.target.files[0])}/>
+           {file && <span className={styles.fileName}>{file.name}</span>}
             <i className="fas fa-utensils fa-3x"></i>
           </div>
           

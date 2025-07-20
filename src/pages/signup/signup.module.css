@@ -1,0 +1,266 @@
+/* Selected file name style for user_photo */
+.fileName {
+  margin-left: 0.7rem;
+  color: #00897b;
+  font-size: 0.95rem;
+  font-weight: 500;
+  word-break: break-all;
+}
+/* Background and layout */
+.body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(120deg, #e0f7fa 0%, #ffffff 100%);
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  position: relative;
+}
+
+/* Decorative glassmorphism shapes */
+.c1, .c2, .c3, .c4, .c5 {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.18;
+  filter: blur(8px);
+  z-index: 0;
+}
+.c1 { width: 160px; height: 160px; top: 8%; left: 12%; background: #26c6da; }
+.c2 { width: 110px; height: 110px; top: 80%; left: 7%; background: #80cbc4; }
+.c3 { width: 90px; height: 90px; top: 12%; right: 12%; background: #00897b; }
+.c4 { width: 70px; height: 70px; bottom: 18%; right: 18%; background: #b2dfdb; }
+.c5 { width: 50px; height: 50px; bottom: 7%; left: 45%; background: #26c6da; }
+
+.login {
+  position: relative;
+  z-index: 1;
+  background: rgba(255,255,255,0.85);
+  padding: 2.2rem 1.5rem;
+  border-radius: 1.25rem;
+  box-shadow: 0 8px 32px rgba(38, 198, 218, 0.12);
+  width: 100%;
+  max-width: 370px;
+  margin: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  backdrop-filter: blur(2px);
+  border: 1px solid #e0f2f1;
+}
+
+h1 {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #00897b;
+  margin-bottom: 0.7rem;
+  letter-spacing: 1px;
+}
+
+
+/* All icons green and same size using :global for CSS modules */
+:global(.fa-envelope),
+:global(.fa-phone),
+:global(.fa-user),
+:global(.fa-lock),
+:global(.fa-utensils) {
+  color: #00897b;
+  font-size: 1.5rem;
+}
+
+/* Home icon: bigger and black */
+.ii :global(.fa-home) {
+  color: #111 !important;
+  font-size: 1.7rem !important;
+}
+.ii {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+}
+
+.email, .phone, .user_name, .pass, .conf, .user_photo {
+  display: flex;
+  align-items: center;
+  background: #f5f5f5;
+  border-radius: 0.7rem;
+  padding: 0.7rem 1rem;
+  margin-bottom: 0.4rem;
+  box-shadow: 0 2px 8px rgba(38, 198, 218, 0.04);
+  gap: 0.7rem;
+  border: 1px solid #e0f2f1;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+/* Highlight container border green when input inside is focused */
+.email:focus-within,
+.phone:focus-within,
+.user_name:focus-within,
+.pass:focus-within,
+.conf:focus-within,
+.user_photo:focus-within {
+  border: 2px solid #00897b;
+  box-shadow: 0 0 0 2px rgba(38, 198, 218, 0.10);
+  /* Add relative for pseudo-element */
+  position: relative;
+}
+
+/* Rolling single green light effect using ::after */
+.email:focus-within::after,
+.phone:focus-within::after,
+.user_name:focus-within::after,
+.pass:focus-within::after,
+.conf:focus-within::after,
+.user_photo:focus-within::after {
+  content: "";
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #26c6da;
+  box-shadow: 0 0 8px 2px #26c6da;
+  z-index: 2;
+  pointer-events: none;
+  animation: roll-light 4s linear infinite;
+}
+
+@keyframes roll-light {
+  0%   { left: -6px; top: -6px; }
+  35%  { left: calc(100% - 6px); top: -6px; }
+  50%  { left: calc(100% - 6px); top: calc(100% - 6px); }
+  85%  { left: -6px; top: calc(100% - 6px); }
+  100% { left: -6px; top: -6px; }
+}
+
+input[type="email"],
+input[type="number"],
+input[type="text"],
+input[type="password"] {
+  flex: 1;
+  border: none !important;
+  background: transparent;
+  font-size: 1rem;
+  outline: none;
+  padding: 0.5rem 0;
+  color: #00695c;
+  transition: border 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+/* Highlight border green on focus */
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="text"]:focus,
+input[type="password"]:focus {
+  border: none !important;
+  box-shadow: none;
+  background: #f0fcfa;
+}
+
+input[type="file"].catphoto {
+  border: none;
+  background: transparent;
+  font-size: 1rem;
+  color: #00897b;
+  padding: 0.5rem 0;
+  display: none;
+}
+
+.fileLabel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1rem;
+  color: #fff;
+  background: linear-gradient(90deg, #22c55e 0%, #10b981 100%);
+  padding: 0.45rem 1.1rem;
+  border-radius: 0.6rem;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.12);
+  margin-bottom: 0.3rem;
+  letter-spacing: 0.5px;
+  border: 1px solid #22c55e;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  outline: none;
+  text-transform: none;
+  text-align: left;
+  border-image: none;
+}
+.fileLabel:hover {
+  background: linear-gradient(90deg, #10b981 0%, #22c55e 100%);
+  box-shadow: 0 8px 32px rgba(16, 185, 129, 0.28);
+  transform: translateY(-2px) scale(1.06);
+}
+
+
+button {
+  width: 100%;
+  padding: 0.85rem 0;
+  background: linear-gradient(90deg, #26c6da 0%, #00897b 100%);
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 0.7rem;
+  box-shadow: 0 4px 16px rgba(38, 198, 218, 0.10);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  margin-top: 0.4rem;
+  letter-spacing: 0.5px;
+}
+
+button:hover {
+  background: linear-gradient(90deg, #00897b 0%, #26c6da 100%);
+  transform: translateY(-2px) scale(1.03);
+}
+
+p {
+  text-align: center;
+  color: #607d8b;
+  font-size: 1rem;
+}
+
+strong {
+  color: #00897b;
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .login {
+    padding: 1rem 0.3rem;
+    max-width: 98vw;
+    border-radius: 0.8rem;
+  }
+  h1 {
+    font-size: 1.3rem;
+  }
+  .email, .phone, .user_name, .pass, .conf, .user_photo {
+    padding: 0.4rem 0.4rem;
+    font-size: 0.95rem;
+  }
+  button {
+    font-size: 0.95rem;
+    padding: 0.6rem 0;
+  }
+}
+
+/* Error message styles */
+p[id^="err-"] {
+  color: #d32f2f !important;
+  font-size: 0.95rem;
+  margin: 0.2rem 0 0.5rem 0;
+  text-align: left;
+  font-weight: 500;
+}
+
+/* Input border for error (overridden by JS) */
+input[style*="red"] {
+  border: solid 2px #d32f2f !important;
+}
+.user_photo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
