@@ -1,189 +1,232 @@
-.body{
-  margin: 0;
-  height: 100vh;
-  width: 100vw;
+/* Background and layout */
+.body {
+  min-height: 100vh;
   display: flex;
-  justify-content: center;
   align-items: center;
-  background-color: #1F2937;
-  color: black;
-  overflow: hidden;
+  justify-content: center;
+  background: linear-gradient(120deg, #e0f7fa 0%, #ffffff 100%);
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
   position: relative;
+}
+
+/* Decorative glassmorphism shapes */
+.c1, .c2, .c3, .c4, .c5 {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.18;
+  filter: blur(8px);
   z-index: 0;
 }
-.login{
-  border: 2px solid #FBBF24;
-  padding: 30px 20px;
+.c1 { width: 160px; height: 160px; top: 8%; left: 12%; background: #26c6da; }
+.c2 { width: 110px; height: 110px; top: 80%; left: 7%; background: #80cbc4; }
+.c3 { width: 90px; height: 90px; top: 12%; right: 12%; background: #00897b; }
+.c4 { width: 70px; height: 70px; bottom: 18%; right: 18%; background: #b2dfdb; }
+.c5 { width: 50px; height: 50px; bottom: 7%; left: 45%; background: #26c6da; }
+
+.login {
+  position: relative;
+  z-index: 1;
+  background: rgba(255,255,255,0.85);
+  padding: 2.2rem 1.5rem;
+  border-radius: 1.25rem;
+  box-shadow: 0 8px 32px rgba(38, 198, 218, 0.12);
+  width: 100%;
+  max-width: 370px;
+  margin: 2rem;
   display: flex;
   flex-direction: column;
-  row-gap: 10px;
-  border-radius: 30px;
-  border-color: #FBBF24;
-  box-shadow: 3px 2px 70px #FBBF24;
-  background-color: #d3d3d3;
-  animation: movec 10s infinite ;
-  z-index: 100;
-  width: 90%;
-  max-width: 400px;
+  gap: 1.1rem;
+  backdrop-filter: blur(2px);
+  border: 1px solid #e0f2f1;
 }
-.login h1{
+
+h1 {
   text-align: center;
-  font-size: 3rem;
-  margin-top: 20px;
-  margin-bottom: 50px;
-  color: #FBBF24;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #00897b;
+  margin-bottom: 0.7rem;
+  letter-spacing: 1px;
 }
+
+/* All icons green and same size using :global for CSS modules */
+:global(.fa-envelope),
+:global(.fa-phone),
+:global(.fa-user),
+:global(.fa-lock),
+:global(.fa-utensils) {
+  color: #00897b;
+  font-size: 1.3rem;
+}
+
+/* Home icon: bigger and black */
+.ii :global(.fa-home) {
+  color: #111 !important;
+  font-size: 1.7rem !important;
+}
+.ii {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+}
+
 .email, .pass {
   display: flex;
   align-items: center;
-  width: 100%;
-  max-width: 350px;
-  margin: 0 auto;
+  background: #f5f5f5;
+  border-radius: 0.7rem;
+  padding: 0.7rem 1rem;
+  margin-bottom: 0.4rem;
+  box-shadow: 0 2px 8px rgba(38, 198, 218, 0.04);
+  gap: 0.7rem;
+  border: 1px solid #e0f2f1;
+  transition: border 0.2s, box-shadow 0.2s;
 }
-.login input{
-  height: 35px;
-  width: 100%;
-  padding-left: 20px;
-  border-radius: 20px;
-  color: black;
-  background-color: rgb(244, 244, 244);
-  outline: #FBBF24;
-  border: 3px solid grey;
-  box-sizing: border-box;
+/* Error state for input container */
+.email.error,
+.pass.error {
+  border: 2px solid #d32f2f !important;
+  box-shadow: 0 0 0 2px rgba(211, 47, 47, 0.10);
 }
-.login input:focus{
-  outline: #FBBF24;
-  border-color: #FBBF24;
-  box-shadow: 2px 2px 20px #FBBF24;
-}
-.login i{
-  color: rgb(118, 118, 118);
-  font-size: larger;
-  margin-left: 7px;
-}
-.login input:focus + i{
-  color: #FBBF24;
-}
-.login .footer{
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-.login button{
-  height: 30px;
-  width: 80px;
-  margin: 20px 0;
-  border-radius: 5px;
-  background-color: #FBBF24;
-  cursor: pointer;
-  font-size: medium;
-  color: white;
-}
-#err-mail,#err-pass{
-  margin:0px 20px 0;
-}
-.login>p{
-  text-align: center;
-}
-a:active {
-  color: rgb(255, 0, 0);
-}
-a:hover{
-  opacity: 0.6;
-}
-.c1{
-  height: 100px;
-  width: 100px;
-  background-color: #FBBF24;
-  border-radius: 100px;
-  animation: move 80s infinite ;
-  z-index: -1;
-  position: absolute;
-  top: 40px;
-  left:-100px;
-  box-shadow: 2px 2px 20px #FBBF24;
 
+/* Highlight container border green when input inside is focused */
+.email:focus-within,
+.pass:focus-within {
+  border: 2px solid #00897b;
+  box-shadow: 0 0 0 2px rgba(38, 198, 218, 0.10);
+  position: relative;
 }
-@keyframes move {
-  from{
-      transform: translate(0,0);
-  }
-  to {
-      transform: translate(1700px,-50px);
-  }
-}
-@keyframes movec {
-  0%{
-      transform: translate(0,-5px);
-  }
-  50%{
-      transform: translate(0px,5px);
-  }
-  100%{
-      transform: translate(0,-5px);
-  }
-}
-.c2{
-  height: 40px;
-  width: 40px;
-  background-color: #FBBF24;
-  box-shadow: 2px 2px 20px #FBBF24;
-  border-radius: 100px;
-  animation: move 200s infinite ;
-  z-index: -1;
+
+/* Rolling single green light effect using ::after */
+.email:focus-within::after,
+.pass:focus-within::after {
+  content: "";
   position: absolute;
-  top: 200px;
-  left:-100px;
-  
+  top: 0px;
+  left: 0px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #26c6da;
+  box-shadow: 0 0 8px 2px #26c6da;
+  z-index: 2;
+  pointer-events: none;
+  animation: roll-light 5s linear infinite;
 }
-.c3{
-  height: 60px;
-  width: 60px;
-  background-color: #FBBF24;
-  border-radius: 100px;
-  animation: move 80s infinite ;
-  z-index: -1;
-  position: absolute;
-  top: 350px;
-  left:-100px;
-  animation-delay: 14s;
-  box-shadow: 2px 2px 20px #FBBF24;
+
+@keyframes roll-light {
+  0%   { left: -6px; top: -6px; }
+  25%  { left: calc(100% - 6px); top: -6px; }
+  50%  { left: calc(100% - 6px); top: calc(100% - 6px); }
+  75%  { left: -6px; top: calc(100% - 6px); }
+  100% { left: -6px; top: -6px; }
 }
-.c4{
-  height: 50px;
-  width: 50px;
-  background-color: #FBBF24;
-  border-radius: 100px;
-  animation: move 90s infinite ;
-  z-index: -1;
-  position: absolute;
-  box-shadow: 2px 2px 20px #FBBF24;
-  top: 500px;
-  left:-100px;
-  animation-delay: 29s;
+
+input[type="email"],
+input[type="password"] {
+  flex: 1;
+  border: none !important;
+  background: transparent;
+  font-size: 1rem;
+  outline: none;
+  padding: 0.5rem 0;
+  color: #00695c;
+  transition: border 0.2s, box-shadow 0.2s, background 0.2s;
 }
-.c5{
-  height: 100px;
-  width: 100px;
-  background-color: #FBBF24;
-  border-radius: 100px;
-  animation: move 100s infinite ;
-  z-index: -1;
-  position: absolute;
-  top: 600px;
-  left:-100px;
-  animation-delay: 7s;
-  box-shadow: 2px 2px 20px #FBBF24;
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+  border: none !important;
+  box-shadow: none;
+  background: #f0fcfa;
 }
-a{
-  text-decoration: none;
+
+button {
+  width: 100%;
+  padding: 0.85rem 0;
+  background: linear-gradient(90deg, #26c6da 0%, #00897b 100%);
+  color: #fff;
+  font-size: 1.1rem;
   font-weight: 600;
-  font-size: medium;
+  border: none;
+  border-radius: 0.7rem;
+  box-shadow: 0 4px 16px rgba(38, 198, 218, 0.10);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  margin-top: 0.4rem;
+  letter-spacing: 0.5px;
 }
-@media (max-width: 768px) {
-  .login{
-    padding: 30px 10px;
+
+button:hover {
+  background: linear-gradient(90deg, #00897b 0%, #26c6da 100%);
+  transform: translateY(-2px) scale(1.03);
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.7rem;
+}
+/* Beautiful forget password link */
+.footer a {
+  color: #22c55e;
+  font-weight: 600;
+  text-decoration: none;
+  background: linear-gradient(90deg, #e0f7fa 0%, #bbf7d0 100%);
+  padding: 0.25rem 0.8rem;
+  border-radius: 0.6rem;
+  box-shadow: 0 2px 8px rgba(34, 197, 94, 0.10);
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  font-size: 1rem;
+  margin-left: 1rem;
+}
+.footer a:hover {
+  background: linear-gradient(90deg, #bbf7d0 0%, #22c55e 100%);
+  color: #00897b;
+  box-shadow: 0 4px 16px rgba(34, 197, 94, 0.18);
+  text-decoration: underline;
+}
+
+p {
+  text-align: center;
+  color: #607d8b;
+  font-size: 1rem;
+}
+
+strong {
+  color: #00897b;
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .login {
+    padding: 1rem 0.3rem;
+    max-width: 98vw;
+    border-radius: 0.8rem;
   }
+  h1 {
+    font-size: 1.3rem;
+  }
+  .email, .pass {
+    padding: 0.4rem 0.4rem;
+    font-size: 0.95rem;
+  }
+  button {
+    font-size: 0.95rem;
+    padding: 0.6rem 0;
+  }
+}
+
+/* Error message styles */
+p[id^="err-"] {
+  color: #d32f2f !important;
+  font-size: 0.95rem;
+  margin: 0.2rem 0 0.5rem 0;
+  text-align: left;
+  font-weight: 500;
+}
+
+input[style*="red"] {
+  border: solid 2px #d32f2f !important;
 }

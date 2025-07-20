@@ -1,9 +1,101 @@
 import styles from "./login.module.css"
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
+import supabase from "../../config/supabaseClient";
 function Login() {
-    const [pass,setPass]=useState("")
-    const [email,setEmail]=useState("")
+    const [pass,setPass]=useState("");
+    const [email,setEmail]=useState("");
+    const navigate = useNavigate();
+
+
+
+
+    const checkEmail=async(email)=>{
+                const {data,error}= await supabase.from('profiles').select('email').eq("email",email).single()
+                    if(error || !data) {
+                        return false
+                        }
+                        return true
+
+                    }
+                    const loginn = async () => {
+                        
+                        const emailError = document.getElementById("err-mail");
+                        const passError = document.getElementById("err-pass");
+                        document.getElementById('login-mail').style.border="solid 2px grey";
+                        document.getElementById('login-pass').style.border="solid 2px grey";
+                        if (emailError) emailError.remove();
+                        if (passError) passError.remove();
+                      
+                        
+                        if (!email || !pass) {
+                          alert("Please enter both email/phone and password.");
+                          return;
+                        }
+                      
+                        let id = email;
+                      
+                        
+                        if (!isNaN(email)) {  
+                          const { data, error } = await supabase
+                            .from("profiles")
+                            .select("email")
+                            .eq("phone", id)
+                            .single();
+                      
+                          if (error || !data) {
+                            let par = document.getElementById("imail");
+                        let err = document.createElement("p");
+                        par.appendChild(err);
+                        err.innerHTML="incorrect email or phone number"
+                        err.style.color="red";
+                        err.id="err-mail";
+                        document.getElementById('login-mail').style.border="solid 2px red";
+                            return;
+                          }
+                          id = data.email; 
+                        }
+
+                        const emailExists = await checkEmail(id);
+                        if (!emailExists) {
+                            let par = document.getElementById("imail");
+                            let err = document.createElement("p");
+                            par.appendChild(err);
+                            err.innerHTML="incorrect email or phone number"
+                            err.style.color="red";
+                            err.id="err-mail";
+                            document.getElementById('login-mail').style.border="solid 2px red";
+                                return;
+                        }
+                      
+                        const { error } = await supabase.auth.signInWithPassword({
+                          email: id,
+                          password: pass,
+                        });
+                        
+                        if (error) {
+                            let par = document.getElementById("passw");
+                            let err = document.createElement("p");
+                            par.appendChild(err);
+                            err.innerHTML="incorrect password"
+                            err.style.color="red";
+                            err.id="err-pass";
+                            document.getElementById('login-pass').style.border="solid 2px red";
+                        } else {
+                          const { data: { session }, error } = await supabase.auth.getSession();
+if (!error && session?.user?.id) {
+  sessionStorage.setItem("userId", session.user.id);
+}
+                          navigate("/main");
+                        }
+                      };
+
+
+
+
+
+
+
     return(
                         <div className={styles.body}>
                             <div className={styles.c1}></div>
@@ -43,7 +135,7 @@ function Login() {
                                 </div>
                                 <div id="passw"></div>
                                 <div className={styles.footer}>
-                                    <button id="check-btn" >Login</button>
+                                    <button id="check-btn" onClick={loginn}>Login</button>
                                     <Link to="/forget">forget password?</Link>
                                 </div>
                                 <p>don't have an account? <Link to="/signup"><strong>sign up</strong></Link></p>

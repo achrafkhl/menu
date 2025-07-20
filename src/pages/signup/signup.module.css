@@ -64,8 +64,8 @@ h1 {
 :global(.fa-user),
 :global(.fa-lock),
 :global(.fa-utensils) {
-  color: #00897b;
-  font-size: 1.5rem;
+  color: hsl(174, 100%, 27%);
+  font-size: 1.3rem;
 }
 
 /* Home icon: bigger and black */
