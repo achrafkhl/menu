@@ -6,7 +6,6 @@ import Forget from './pages/forget/forget';
 import Main from './pages/main/main';
 import Home from './pages/home/home';
 import Code from './pages/code/code';
-import PrivateRoute from './config/PrivateRoute';
 import "./index.css"
 function App() {
   return (
