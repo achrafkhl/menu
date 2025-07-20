@@ -1,3 +1,22 @@
 body{
     margin: 0;
 }
+#forget-pass,#forget-conf,#forget-email {
+  width: 90%;
+  border: none !important;
+  background: #e7e7e7;
+  font-size: 1.15rem;
+  outline: none;
+  padding: 0.85rem 1.1rem;
+  border-radius: 0.7rem;
+  color: #00695c;
+  box-shadow: 0 2px 8px rgba(38, 198, 218, 0.04);
+  border: 1px solid #e0f2f1;
+  margin-bottom: 0.7rem;
+  transition: border 0.2s, box-shadow 0.2s, background 0.2s;
+}
+#forget-pass:focus,#forget-conf:focus,#forget-email:focus {
+  border: 2px solid #00897b;
+  box-shadow: 0 0 0 2px rgba(38, 198, 218, 0.10);
+  background: #f0fcfa;
+}

@@ -56,13 +56,18 @@
   box-shadow: 0 2px 8px rgba(247, 127, 0, 0.10);
 }
 
-.left button:hover, .submit:hover, .add:hover, .edit:hover, .cancel:hover, .delete:hover, .file-label:hover {
+.left button:hover, .submit:hover, .edit:hover, .cancel:hover, .delete:hover, .file-label:hover {
   background: #444857 !important;
   color: #fff !important;
   box-shadow: 0 4px 24px 0 #44485755;
   transform: scale(1.05);
 }
-
+.add:hover{
+  background: #444857 !important;
+  color: #fff !important;
+  box-shadow: 0 4px 24px 0 #44485755;
+  transform: scale(1.01);
+}
 .in {
   background: #232946;
   border: 1.5px solid #31364a;

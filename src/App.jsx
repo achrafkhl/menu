@@ -6,17 +6,19 @@ import Forget from './pages/forget/forget';
 import Main from './pages/main/main';
 import Home from './pages/home/home';
 import Code from './pages/code/code';
+import Reset from './pages/reset/reset';
 import "./index.css"
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/login" element={<Login />} />
         <Route path='/signup' element={<Signup/>}/>
         <Route path='/forget' element={<Forget/>}/>
         <Route path='/main' element={<Main/>}/>
-        <Route path='/home' element={<Home/>}/>
+        <Route path='/' element={<Home/>}/>
         <Route path='/code' element={<Code/>}/>
+        <Route path='/reset' element={<Reset/>}/>
       </Routes>
     </Router>
   );

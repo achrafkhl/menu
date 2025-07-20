@@ -116,9 +116,9 @@ h1 {
 
 @keyframes roll-light {
   0%   { left: -6px; top: -6px; }
-  25%  { left: calc(100% - 6px); top: -6px; }
+  35%  { left: calc(100% - 6px); top: -6px; }
   50%  { left: calc(100% - 6px); top: calc(100% - 6px); }
-  75%  { left: -6px; top: calc(100% - 6px); }
+  85%  { left: -6px; top: calc(100% - 6px); }
   100% { left: -6px; top: -6px; }
 }
 

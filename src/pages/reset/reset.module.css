@@ -1,3 +1,66 @@
+/* Main container style for reset.jsx */
+.container {
+  position: relative;
+  z-index: 1;
+  background: rgba(255,255,255,0.85);
+  padding: 2.2rem 1.5rem;
+  border-radius: 1.25rem;
+  box-shadow: 0 8px 32px rgba(38, 198, 218, 0.12);
+  width: 100%;
+  max-width: 370px;
+  margin: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  backdrop-filter: blur(2px);
+  border: 1px solid #e0f2f1;
+}
+@media (max-width: 600px) {
+  .container {
+    padding: 1rem 0.3rem;
+    max-width: 98vw;
+    border-radius: 0.8rem;
+  }
+}
+
+  .body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(120deg, #e0f7fa 0%, #ffffff 100%);
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  position: relative;
+}
+.conf{
+    position: relative;
+  z-index: 1;
+  background: rgba(255,255,255,0.85);
+  padding: 2.2rem 1.5rem;
+  border-radius: 1.25rem;
+  box-shadow: 0 8px 32px rgba(38, 198, 218, 0.12);
+  width: 100%;
+  max-width: 370px;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  backdrop-filter: blur(2px);
+  border: 1px solid #e0f2f1;
+}
+.c1, .c2, .c3, .c4, .c5 {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.18;
+  filter: blur(8px);
+  z-index: 0;
+}
+.c1 { width: 160px; height: 160px; top: 8%; left: 12%; background: #26c6da; }
+.c2 { width: 110px; height: 110px; top: 80%; left: 7%; background: #80cbc4; }
+.c3 { width: 90px; height: 90px; top: 12%; right: 12%; background: #00897b; }
+.c4 { width: 70px; height: 70px; bottom: 18%; right: 18%; background: #b2dfdb; }
+.c5 { width: 50px; height: 50px; bottom: 7%; left: 45%; background: #26c6da; }
+
 .actions {
   display: flex;
   align-items: center;
@@ -16,6 +79,7 @@
   margin-left: 0;
   flex: 0 0 auto;
 }
+@media (max-width: 600px) {
   .actions {
     flex-direction: column;
     gap: 0.5rem;
@@ -25,59 +89,7 @@
     width: 100%;
     min-width: unset;
   }
-/* Main container style for forget.jsx */
-.container {
-  position: relative;
-  z-index: 1;
-  background: rgba(255,255,255,0.85);
-  padding: 2.2rem 1.5rem;
-  border-radius: 1.25rem;
-  box-shadow: 0 8px 32px rgba(38, 198, 218, 0.12);
-  width: 100%;
-  max-width: 370px;
-  margin: 2rem auto;
-  display: flex;
-  flex-direction: column;
-  gap: 1.1rem;
-  backdrop-filter: blur(2px);
-  border: 1px solid #e0f2f1;
 }
-@media (max-width: 600px) {
-  .container {
-    padding: 1rem 0.3rem;
-    max-width: 98vw;
-    border-radius: 0.8rem;
-  }
-}
-/* Background and layout for forget.jsx */
-.body {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(120deg, #e0f7fa 0%, #ffffff 100%);
-  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
-  position: relative;
-}
-.c1, .c2, .c3, .c4, .c5 {
-  position: absolute;
-  border-radius: 50%;
-  opacity: 0.18;
-  filter: blur(8px);
-  z-index: 0;
-}
-.c1 { width: 160px; height: 160px; top: 8%; left: 12%; background: #26c6da; }
-.c2 { width: 110px; height: 110px; top: 80%; left: 7%; background: #80cbc4; }
-.c3 { width: 90px; height: 90px; top: 12%; right: 12%; background: #00897b; }
-.c4 { width: 70px; height: 70px; bottom: 18%; right: 18%; background: #b2dfdb; }
-.c5 { width: 50px; height: 50px; bottom: 7%; left: 45%; background: #26c6da; }
-.email {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  margin-bottom: 0.7rem;
-}
-
 .but {
   width: 100%;
   padding: 0.85rem 0;
@@ -131,7 +143,7 @@ strong {
     max-width: 98vw;
     border-radius: 0.8rem;
   }
-  input[type="email"] {
+  input[type="password"] {
     padding: 0.4rem 0.4rem;
     font-size: 0.95rem;
   }
