@@ -2,7 +2,6 @@ import supabase from "../../config/supabaseClient";
 import { useState, useEffect } from "react";
 import styles from "./code.module.css";
 import Menu from "./menu";
-import image from "../../assets/mr-removebg-preview (4).png";
 import { useParams } from "react-router-dom";
 
 function Code() {
@@ -25,7 +24,7 @@ function Code() {
                     return;
                 }
 
-                setRestaurantName(profile.name); // optional: show dynamic restaurant name
+                setRestaurantName(profile); // optional: show dynamic restaurant name
 
                 // 2. Get categories & dishes for this restaurant
                 const { data: categories, error: catError } = await supabase
@@ -49,10 +48,14 @@ function Code() {
     return (
         <div className={styles.body}>
             <div className={styles["header-center"]}>
-                <div className={styles.inside}>
-                    <img src={image} alt={restaurantName || "MR YUMMY"} />
-                    <h3>{restaurantName || "MR YUMMY"}</h3>
+                {restaurantName ? (
+                    <div className={styles.inside}>
+                    <img src={restaurantName.image_url} alt={restaurantName} />
+                    <h3>{restaurantName.name}</h3>
                 </div>
+                ) : (
+                    <h1>Restaurant Name</h1>
+                )}
                 <h1>MENU:</h1>
             </div>
             {cat.length > 0 ? (
