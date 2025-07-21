@@ -1,8 +1,7 @@
 import styles from "./main.module.css"
 import supabase from "../../config/supabaseClient";
 import { useState,useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import image from "../../assets/mr-removebg-preview (4).png"
+import { useNavigate,Link } from "react-router-dom";
 import Cat from "./cat";
 import Dish from "./dish";
 import QRCodeDownload from "../../config/QRCodeDownload";
@@ -38,9 +37,9 @@ function Main() {
                       }
         try {
             const { data: profile, error: profileError } = await supabase
-                .from("profiles").select("slug").eq("id", userId).single();
+                .from("profiles").select("slug,name,id,logo_url").eq("id", userId).single();
             if (profileError || !profile) throw new Error("No profile found for this user");
-            setSlug(profile.slug); // Store slug for QR code generation
+            setSlug(profile); // Store slug for QR code generation
             const { data, error } = await supabase.from("categories").select(`*,dishes (id, name, price, image_url)`).eq('restaurant_id', userId);
             if (error) throw error;
             
@@ -259,10 +258,11 @@ if (!error) {
         <div className={styles.body}>
             <div className={styles.left}>
                 <h4>Sidebar: Categories</h4>
-                <div className={styles.logo}>
-                    <img src={image} alt="mr yummy" />
-                    <h3>MR YUMMY</h3>
-                </div>
+                {slug && (
+                    <div className={styles.logo}>
+                    <img src={slug.logo_url} alt={slug.name} />
+                    <h3>{slug.name.toUpperCase()}</h3>
+                </div>)}
                 <button onClick={handle}><span><b>+</b></span> add categorie</button>
                 {pop && (
                     <div className={styles.in}>
@@ -294,7 +294,7 @@ if (!error) {
 
             <div className={styles.right}>
                 <h4>Main Panel: Dishes in Selected Category</h4>
-                <QRCodeDownload className={styles.qr} restaurantUrl={`https://menu-iota-two.vercel.app/code/${slug}`} />
+                
                 {selectedProduct ? (
                     <div className={styles.left_center}>
                     <img src={selectedProduct.image_url} alt={selectedProduct.name} />
@@ -315,7 +315,8 @@ if (!error) {
                 
                 
                 <button className={styles.add} onClick={addDish}>Add new Dish</button>
-
+                <QRCodeDownload className={styles.qr} restaurantUrl={`https://menu-iota-two.vercel.app/code/${slug.slug}`} />
+                <Link to={`/code/${slug.slug}`}><button className={styles.show}>see menu</button></Link>
                 {popDish && (
                     <div className={styles.pop_dish}>
                         <input className={styles.citib} id="catin" type="text" placeholder="enter the name of the dish" value={dishin} onChange={(e) => setDishin(e.target.value)}/>

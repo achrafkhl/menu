@@ -16,10 +16,10 @@ function QRCodeDownload({ restaurantUrl, className }) {
 
   return (
     <div className={className}>
-      <div ref={qrRef}>
-        <QRCodeCanvas value={restaurantUrl} size={200} />
-      </div>
       <button onClick={downloadQR}>Download QR Code</button>
+      <div ref={qrRef}>
+        <QRCodeCanvas value={restaurantUrl} size={400} style={{display:"none"}}/>
+      </div>
     </div>
   );
 }

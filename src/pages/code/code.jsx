@@ -47,7 +47,7 @@ function Code() {
 
     return (
         <div className={styles.body}>
-            <div className={styles["header-center"]}>
+            <div className={`${styles["header-center"]} ${styles.sticky_header}`}>
                 {restaurantName ? (
                     <div className={styles.inside}>
                     <img src={restaurantName.logo_url} alt={restaurantName.name} />

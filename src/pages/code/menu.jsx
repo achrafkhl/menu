@@ -7,7 +7,7 @@ function Menu({cats}) {
                 <img src={cats.image_url} alt={cats.name} />
                 <h5>{cats.name}</h5>
             </div>
-            <div className="dish">
+            <div className={styles.dish}>
                 {cats.dishes.length>0?(
                     <div className={styles.dish_section}>
                         {cats.dishes.map(dish=>(
