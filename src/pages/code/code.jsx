@@ -50,7 +50,7 @@ function Code() {
             <div className={styles["header-center"]}>
                 {restaurantName ? (
                     <div className={styles.inside}>
-                    <img src={restaurantName.image_url} alt={restaurantName} />
+                    <img src={restaurantName.logo_url} alt={restaurantName} />
                     <h3>{restaurantName.name}</h3>
                 </div>
                 ) : (
