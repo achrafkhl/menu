@@ -1,3 +1,19 @@
+.qr {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.qr button {
+  margin-top: 10px;
+  padding: 8px 12px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
 .body {
   display: flex;
   min-height: 100vh;

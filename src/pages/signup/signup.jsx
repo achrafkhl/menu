@@ -2,6 +2,30 @@ import styles from "./signup.module.css"
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import supabase from "../../config/supabaseClient"
+
+
+async function generateUniqueSlug(name) {
+  const baseSlug = name.toLowerCase().replace(/\s+/g, '-');
+  let slug = baseSlug;
+  let counter = 1;
+
+  while (true) {
+    const { data, error } = await supabase
+      .from("profiles")
+      .select("slug")
+      .eq("slug", slug);
+    if (error) {
+      console.error("Error checking slug uniqueness:", error.message); }
+    if (!data || data.length === 0) break; // Unique slug found
+    slug = `${baseSlug}-${counter++}`;
+  }
+
+  return slug;
+}
+
+
+
+
 function Signup() {
     const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -60,7 +84,7 @@ function Signup() {
       showError("tell", "err-pass", "Passwords do not match", "sign-pass");
       return;
     }
-
+    const slug = await generateUniqueSlug(name);
     const { data, error } = await supabase
   .from("profiles")
   .select("email, phone")
@@ -102,7 +126,7 @@ const publicUrl = photoData.publicUrl;
 // Insert into profiles
 const userId = signUpData.user?.id;
 const { error: insertError } = await supabase.from("profiles").insert([
-  { id: userId, email, phone, name, logo_url: publicUrl },
+  { id: userId, email, phone, name, logo_url: publicUrl,slug, },
 ]);
 
 if (insertError) {

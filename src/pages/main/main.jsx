@@ -1,22 +1,16 @@
 import styles from "./main.module.css"
 import supabase from "../../config/supabaseClient";
 import { useState,useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import image from "../../assets/mr-removebg-preview (4).png"
 import Cat from "./cat";
 import Dish from "./dish";
-
+import QRCodeDownload from "../../config/QRCodeDownload";
 function getStoragePathFromUrl(url) {
   const regex = /\/storage\/v1\/object\/public\/avatar\/(.*)$/;
   const match = url.match(regex);
   return match ? match[1] : null;
 }
-
-
-
-
-
-
-
 
 function Main() {
     const[cat,setCat]=useState([]);
@@ -33,10 +27,21 @@ function Main() {
     const [deleteType, setDeleteType] = useState(null);
     const [newPrice,setNewPrice] = useState("");
     const [popPrice,setPopPrice] = useState(false);
+    const [slug,setSlug] = useState("");
+    const userId = sessionStorage.getItem("userId");
+    const navigate = useNavigate();
+
     useEffect(() => {
     const fetchCat = async () => {
+        if (!userId) {
+                        navigate("/login");
+                      }
         try {
-            const { data, error } = await supabase.from("categories").select(`*,dishes (id, name, price, image_url)`);
+            const { data: profile, error: profileError } = await supabase
+                .from("profiles").select("slug").eq("id", userId).single();
+            if (profileError || !profile) throw new Error("No profile found for this user");
+            setSlug(profile.slug); // Store slug for QR code generation
+            const { data, error } = await supabase.from("categories").select(`*,dishes (id, name, price, image_url)`).eq('restaurant_id', userId);
             if (error) throw error;
             
             if(data.length>0){
@@ -87,7 +92,7 @@ function Main() {
             supabase.removeChannel(channel);
             supabase.removeChannel(dishesChannel);
         };
-}, []);
+}, [navigate,userId]);
     
     const handle = () =>setPop(true);
     const cancel = () =>setPop(false);
@@ -117,6 +122,7 @@ function Main() {
              const { data: insertedData, error } = await supabase.from('categories').insert({
     name: catin,
     image_url: publicUrl,
+    restaurant_id: userId,
 }).select().single(); // <- gets back the inserted row
 
 if (!error) {
@@ -248,6 +254,7 @@ if (!error) {
         setPopPrice(false);
     }
 
+
     return(
         <div className={styles.body}>
             <div className={styles.left}>
@@ -287,6 +294,7 @@ if (!error) {
 
             <div className={styles.right}>
                 <h4>Main Panel: Dishes in Selected Category</h4>
+                <QRCodeDownload className={styles.qr} restaurantUrl={`https://menu-iota-two.vercel.app/code/${slug}`} />
                 {selectedProduct ? (
                     <div className={styles.left_center}>
                     <img src={selectedProduct.image_url} alt={selectedProduct.name} />
@@ -304,6 +312,8 @@ if (!error) {
                 ):(
                     <p>no dishes found</p>
                 )}
+                
+                
                 <button className={styles.add} onClick={addDish}>Add new Dish</button>
 
                 {popDish && (
