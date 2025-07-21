@@ -15,7 +15,7 @@ function Code() {
                 // 1. Get restaurant by slug
                 const { data: profile, error: profileError } = await supabase
                     .from("profiles")
-                    .select("id, name")
+                    .select("id, name", "logo_url")
                     .eq("slug", slug)
                     .single();
 
@@ -50,7 +50,7 @@ function Code() {
             <div className={styles["header-center"]}>
                 {restaurantName ? (
                     <div className={styles.inside}>
-                    <img src={restaurantName.logo_url} alt={restaurantName.logo_url} />
+                    <img src={restaurantName.logo_url} alt={restaurantName.name} />
                     <h3>{restaurantName.name}</h3>
                 </div>
                 ) : (
