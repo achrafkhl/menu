@@ -15,7 +15,7 @@ function Code() {
                 // 1. Get restaurant by slug
                 const { data: profile, error: profileError } = await supabase
                     .from("profiles")
-                    .select("id, name", "logo_url")
+                    .select("id, name,logo_url")
                     .eq("slug", slug)
                     .single();
 
