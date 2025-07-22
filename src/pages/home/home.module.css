@@ -221,19 +221,30 @@
 }
 
 @media (max-width: 480px) {
-  
-  .navLinks {
-    flex-direction: column;
+  .navbar {
+    width: 100vw;
+    max-width: 100vw;
+    padding: 0.7rem 0.3rem 0.7rem 0.3rem;
+    font-size: 0.95rem;
     gap: 0.5rem;
+    border-radius: 0 0 0.7rem 0.7rem;
+    margin-right: 0;
+    padding-left: 20px;
   }
-  .headerBtn {
-    width: 100%;
-    text-align: center;
+  .navLogo {
+    font-size: 1.1rem;
+    gap: 0.3rem;
   }
-  .navbar{
-    padding: 0;
-    width: 100%;
-    max-width: 100%;
-    
+  .logoIcon {
+    font-size: 1.3rem;
+  }
+  .logoText {
+    font-size: 1rem;
+  }
+  .navLink {
+    padding: 0.4rem 0.7rem;
+    font-size: 0.92rem;
+    border-radius: 0.5rem;
   }
 }
+  
