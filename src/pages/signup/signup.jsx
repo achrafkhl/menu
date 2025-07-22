@@ -150,7 +150,7 @@ window.location.href = "/login";
   
         <div className={styles.login}>
           <div className={styles.ii} style={{ textAlign: "left", marginLeft: "20px" }}>
-            <Link to="/code" style={{ cursor: "pointer" }}>
+            <Link to="/" style={{ cursor: "pointer" }}>
               <i className="fas fa-home" style={{ color: "black" }}></i>
             </Link>
           </div>
@@ -191,7 +191,7 @@ window.location.href = "/login";
             <i className="fas fa-utensils fa-3x"></i>
           </div>
           
-          <p>Already have an account? <Link to="/"><strong>Login</strong></Link></p>
+          <p>Already have an account? <Link to="/login"><strong className={styles.strong}>Login</strong></Link></p>
           <button onClick={handleSignUp}>Sign Up</button>
         </div>
 

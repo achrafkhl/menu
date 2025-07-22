@@ -105,7 +105,7 @@ if (!error && session?.user?.id) {
                             <div className={styles.c5}></div>
                             <div className={styles.login}>
                                 <div className={styles.ii} style={{ textAlign: "left", color: "black" }}>
-                                    <Link to="/main" style={{ cursor: "pointer" }}>
+                                    <Link to="/" style={{ cursor: "pointer" }}>
                                         <i className="fas fa-home" style={{ color: "rgb(0, 0, 0)" }}></i>
                                     </Link>
                                 </div>
@@ -138,7 +138,7 @@ if (!error && session?.user?.id) {
                                     <button id="check-btn" onClick={loginn}>Login</button>
                                     <Link to="/forget">forget password?</Link>
                                 </div>
-                                <p>don't have an account? <Link to="/signup"><strong>sign up</strong></Link></p>
+                                <p>don't have an account? <Link to="/signup"><strong className={styles.strong}>sign up</strong></Link></p>
                             </div>
                         </div>
                     );

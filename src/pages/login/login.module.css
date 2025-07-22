@@ -4,7 +4,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(120deg, #e0f7fa 0%, #ffffff 100%);
+  background: linear-gradient(120deg, #f5f5f5 0%, #eee9e4 100%);
   font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
   position: relative;
 }
@@ -17,19 +17,19 @@
   filter: blur(8px);
   z-index: 0;
 }
-.c1 { width: 160px; height: 160px; top: 8%; left: 12%; background: #26c6da; }
-.c2 { width: 110px; height: 110px; top: 80%; left: 7%; background: #80cbc4; }
-.c3 { width: 90px; height: 90px; top: 12%; right: 12%; background: #00897b; }
-.c4 { width: 70px; height: 70px; bottom: 18%; right: 18%; background: #b2dfdb; }
-.c5 { width: 50px; height: 50px; bottom: 7%; left: 45%; background: #26c6da; }
+.c1 { width: 160px; height: 160px; top: 8%; left: 12%; background: #bca18c; }
+.c2 { width: 110px; height: 110px; top: 80%; left: 7%; background: #bca18c; }
+.c3 { width: 90px; height: 90px; top: 12%; right: 12%; background: #a1887f; }
+.c4 { width: 70px; height: 70px; bottom: 18%; right: 18%; background: #d7ccc8; }
+.c5 { width: 50px; height: 50px; bottom: 7%; left: 45%; background: #bca18c; }
 
 .login {
   position: relative;
   z-index: 1;
-  background: rgba(255,255,255,0.85);
+  background: rgba(255, 250, 245, 0.92);
   padding: 2.2rem 1.5rem;
   border-radius: 1.25rem;
-  box-shadow: 0 8px 32px rgba(38, 198, 218, 0.12);
+  box-shadow: 0 8px 32px rgba(121, 85, 72, 0.10);
   width: 100%;
   max-width: 370px;
   margin: 2rem;
@@ -37,14 +37,14 @@
   flex-direction: column;
   gap: 1.1rem;
   backdrop-filter: blur(2px);
-  border: 1px solid #e0f2f1;
+  border: 1px solid #d7ccc8;
 }
 
 h1 {
   text-align: center;
   font-size: 2rem;
   font-weight: 700;
-  color: #00897b;
+  color: #795548;
   margin-bottom: 0.7rem;
   letter-spacing: 1px;
 }
@@ -55,13 +55,13 @@ h1 {
 :global(.fa-user),
 :global(.fa-lock),
 :global(.fa-utensils) {
-  color: #00897b;
+  color: #a1887f;
   font-size: 1.3rem;
 }
 
 /* Home icon: bigger and black */
 .ii :global(.fa-home) {
-  color: #111 !important;
+  color: #795548 !important;
   font-size: 1.7rem !important;
 }
 .ii {
@@ -79,7 +79,7 @@ h1 {
   margin-bottom: 0.4rem;
   box-shadow: 0 2px 8px rgba(38, 198, 218, 0.04);
   gap: 0.7rem;
-  border: 1px solid #e0f2f1;
+  border: 1.5px solid #cacaca;
   transition: border 0.2s, box-shadow 0.2s;
 }
 /* Error state for input container */
@@ -92,8 +92,8 @@ h1 {
 /* Highlight container border green when input inside is focused */
 .email:focus-within,
 .pass:focus-within {
-  border: 2px solid #00897b;
-  box-shadow: 0 0 0 2px rgba(38, 198, 218, 0.10);
+  border: 2px solid #894b00;
+  box-shadow: 0 0 0 2px 894b00(38, 198, 218, 0.10);
   position: relative;
 }
 
@@ -107,8 +107,8 @@ h1 {
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: #26c6da;
-  box-shadow: 0 0 8px 2px #26c6da;
+  background: #8d4316;
+  box-shadow: 0 0 8px 2px #da6b26;
   z-index: 2;
   pointer-events: none;
   animation: roll-light 5s linear infinite;
@@ -130,7 +130,7 @@ input[type="password"] {
   font-size: 1rem;
   outline: none;
   padding: 0.5rem 0;
-  color: #00695c;
+  color: #693c00;
   transition: border 0.2s, box-shadow 0.2s, background 0.2s;
 }
 
@@ -141,16 +141,18 @@ input[type="password"]:focus {
   background: #f0fcfa;
 }
 
+
+
 button {
   width: 100%;
   padding: 0.85rem 0;
-  background: linear-gradient(90deg, #26c6da 0%, #00897b 100%);
+  background: linear-gradient(90deg, #a1887f 0%, #bca18c 100%);
   color: #fff;
   font-size: 1.1rem;
   font-weight: 600;
   border: none;
   border-radius: 0.7rem;
-  box-shadow: 0 4px 16px rgba(38, 198, 218, 0.10);
+  box-shadow: 0 4px 16px rgba(121, 85, 72, 0.10);
   cursor: pointer;
   transition: background 0.2s, transform 0.2s;
   margin-top: 0.4rem;
@@ -158,7 +160,7 @@ button {
 }
 
 button:hover {
-  background: linear-gradient(90deg, #00897b 0%, #26c6da 100%);
+  background: linear-gradient(90deg, #bca18c 0%, #a1887f 100%);
   transform: translateY(-2px) scale(1.03);
 }
 
@@ -170,21 +172,21 @@ button:hover {
 }
 /* Beautiful forget password link */
 .footer a {
-  color: #22c55e;
+  color: #894200;
   font-weight: 600;
   text-decoration: none;
-  background: linear-gradient(90deg, #e0f7fa 0%, #bbf7d0 100%);
+  background: linear-gradient(90deg, #f5f5f5 0%, #bca18c 100%);
   padding: 0.25rem 0.8rem;
   border-radius: 0.6rem;
-  box-shadow: 0 2px 8px rgba(34, 197, 94, 0.10);
+  box-shadow: 0 2px 8px rgba(121, 85, 72, 0.10);
   transition: background 0.2s, color 0.2s, box-shadow 0.2s;
   font-size: 1rem;
   margin-left: 1rem;
 }
 .footer a:hover {
-  background: linear-gradient(90deg, #bbf7d0 0%, #22c55e 100%);
-  color: #00897b;
-  box-shadow: 0 4px 16px rgba(34, 197, 94, 0.18);
+  background: linear-gradient(90deg, #bca18c 0%, #a1887f 100%);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(121, 85, 72, 0.18);
   text-decoration: underline;
 }
 
@@ -194,8 +196,8 @@ p {
   font-size: 1rem;
 }
 
-strong {
-  color: #00897b;
+.strong {
+  color: #894200;
   cursor: pointer;
 }
 
