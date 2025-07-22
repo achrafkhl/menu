@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { QRCodeCanvas } from "qrcode.react";
-
+import styles from "../pages/main/main.module.css";
 function QRCodeDownload({ restaurantUrl, className }) {
   const qrRef = useRef();
 
@@ -16,8 +16,8 @@ function QRCodeDownload({ restaurantUrl, className }) {
 
   return (
     <div className={className}>
-      <button onClick={downloadQR}>Download QR Code</button>
-      <div ref={qrRef}>
+      <button onClick={downloadQR}>Download QR Code <i className="fas fa-qrcode"></i></button>
+      <div ref={qrRef} className={styles.code_container}>
         <QRCodeCanvas value={restaurantUrl} size={400} style={{display:"none"}}/>
       </div>
     </div>

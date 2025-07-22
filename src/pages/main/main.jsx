@@ -315,20 +315,29 @@ if (!error) {
                 
                 
                 <button className={styles.add} onClick={addDish}>Add new Dish</button>
-                <QRCodeDownload className={styles.qr} restaurantUrl={`https://menu-iota-two.vercel.app/code/${slug.slug}`} />
-                <Link to={`/code/${slug.slug}`}><button className={styles.show}>see menu</button></Link>
+                <div className={styles.west}>
+                    <QRCodeDownload className={styles.qr} restaurantUrl={`https://menu-iota-two.vercel.app/code/${slug.slug}`} />
+                    <Link to={`/code/${slug.slug}`}><button className={styles.show}>see menu <i className="fas fa-book-open"></i></button></Link>
+                </div>
                 {popDish && (
-                    <div className={styles.pop_dish}>
-                        <input className={styles.citib} id="catin" type="text" placeholder="enter the name of the dish" value={dishin} onChange={(e) => setDishin(e.target.value)}/>
-                        <label className={styles["file-label"]} htmlFor="dishphoto">Enter a photo</label>
-                        <input className={styles.catphoto} id="dishphoto" type="file" onChange={(e) => setDishPhoto(e.target.files[0])}/>
-                        {dishPhoto && <span className={styles["selected-file"]}>{dishPhoto.name}</span>}
-                        <input className={styles.citib} id="catin" type="number" placeholder="enter the price" value={dishPrice} onChange={(e) => setDishPrice(e.target.value)}/>
-                        <button className={styles.submit} onClick={submitDish}>submit</button>
-                        <button className={styles.cancel} onClick={cancelDish}>cancel</button>
-                    </div>
-                )}
-                {confirmDelete && (
+  <div className={styles["modal-overlay"]}>
+    <div className={styles["modal-center"]}>
+      <div className={styles["modal-title"]}>Add New Dish</div>
+      <div className={styles["modal-form"]}>
+        <input className={styles.citib} id="catin" type="text" placeholder="Enter the name of the dish" value={dishin} onChange={(e) => setDishin(e.target.value)}/>
+        <label className={styles.fileLabel} htmlFor="dishphoto">Upload a photo</label>
+        <input className={styles.catphoto} id="dishphoto" type="file" onChange={(e) => setDishPhoto(e.target.files[0])}/>
+        {dishPhoto && <span className={styles.fileName}>{dishPhoto.name}</span>}
+        <input className={styles.citib} id="catin" type="number" placeholder="Enter the price" value={dishPrice} onChange={(e) => setDishPrice(e.target.value)}/>
+        <div className={styles["modal-actions"]}>
+          <button className={styles.submit} onClick={submitDish}>Submit</button>
+          <button className={styles.cancel} onClick={cancelDish}>Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
+{confirmDelete && (
   <div className={styles["modal-overlay"]}>
     <div className={styles["modal-center"]}>
       <div className={styles.pop_dish}>
