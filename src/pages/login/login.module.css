@@ -214,7 +214,7 @@ p {
     padding: 0.4rem 0.4rem;
     font-size: 0.95rem;
   }
-  button {
+  .login button {
     font-size: 0.95rem;
     padding: 0.6rem 0;
   }
