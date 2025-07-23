@@ -223,7 +223,16 @@ p {
     padding: 0.6rem 0;
   }
 }
-
+@media (max-width: 600px) {
+  .body {
+    justify-content: flex-start;
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+  }
+  .login {
+    margin-top: 0 !important;
+  }
+}
 /* Error message styles */
 p[id^="err-"] {
   color: #d32f2f !important;
