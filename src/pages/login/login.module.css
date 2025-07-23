@@ -202,6 +202,10 @@ p {
 }
 
 @media (max-width: 600px) {
+  .body {
+    justify-content: flex-start;
+    padding-top: 0;
+  }
   .login {
     padding: 1rem 0.3rem;
     max-width: 98vw;
