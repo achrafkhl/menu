@@ -1,3 +1,10 @@
+/* Spinner animation for loading state */
+.spinner {
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
 /* Selected file name style for user_photo */
 .fileName {
   margin-left: 0.7rem;

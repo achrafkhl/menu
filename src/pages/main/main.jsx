@@ -300,7 +300,7 @@ if (!error) {
             {file && <span className={styles.fileName}>{file.name}</span>}
         </div>
         <div className={styles["modal-actions"]}>
-          <button className={styles.submit} onClick={submit}>Submit</button>
+          <button className={styles.submit} onClick={submit}>Add</button>
           <button className={styles.cancel} onClick={cancel}>Cancel</button>
         </div>
       </div>
@@ -375,7 +375,7 @@ if (!error) {
         </div>
         <input className={styles.citib} id="catin" type="number" placeholder="Enter the price" value={dishPrice} onChange={(e) => setDishPrice(e.target.value)}/>
         <div className={styles["modal-actions"]}>
-          <button className={styles.submit} onClick={submitDish}>Submit</button>
+          <button className={styles.submit} onClick={submitDish}>Add</button>
           <button className={styles.cancel} onClick={cancelDish}>Cancel</button>
         </div>
       </div>
@@ -408,7 +408,7 @@ if (!error) {
           onChange={e => setNewPrice(e.target.value)}
         />
         <div className={styles["modal-actions"]}>
-          <button className={styles.submit} onClick={ConfirmPrice}>Confirm</button>
+          <button className={styles.submit} onClick={ConfirmPrice}>Change</button>
           <button className={styles.cancel} onClick={() => setPopPrice(false)}>Cancel</button>
         </div>
       </div>

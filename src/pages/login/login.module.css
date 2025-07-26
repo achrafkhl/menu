@@ -245,3 +245,10 @@ p[id^="err-"] {
 input[style*="red"] {
   border: solid 2px #d32f2f !important;
 }
+
+.spinner {
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
