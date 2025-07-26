@@ -20,3 +20,8 @@ body{
   box-shadow: 0 0 0 2px rgba(38, 198, 218, 0.10);
   background: #f0fcfa;
 }
+@media (max-width: 480px) {
+  body {
+    padding-bottom: 30px;
+  }
+}
