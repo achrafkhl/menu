@@ -265,7 +265,24 @@ if (!error) {
                 </div>)}
                 <button onClick={handle} className={styles.addcat}><span><b>+</b></span> add categorie</button>
                 {pop && (
-                    <div className={styles.in}>
+                    <div className={styles["modal-overlay"]}>
+    <div className={styles["modal-center"]}>
+      <div className={styles["modal-title"]}>Add New Category</div>
+      <div className={styles["modal-form"]}>
+        <input className={styles.citib} id="catin" type="text" placeholder="Enter the name of the category" value={catin} onChange={(e) => setCatin(e.target.value)}/>
+        <div className={styles.inside_photo}>
+            <label className={styles.fileLabel} htmlFor="catphoto">Upload a photo</label>
+            <input className={styles.catphoto} id="catphoto" type="file" onChange={(e) => setFile(e.target.files[0])}/>
+            {file && <span className={styles.fileName}>{file.name}</span>}
+        </div>
+        <div className={styles["modal-actions"]}>
+          <button className={styles.submit} onClick={submit}>Submit</button>
+          <button className={styles.cancel} onClick={cancel}>Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+                    /*<div className={styles.in}>
                         <input className={styles.citib} id="catin" type="text" placeholder="enter a category" value={catin} onChange={(e) => setCatin(e.target.value)}/>
                         <div className={styles.inside}>
                             <label className={styles["file-label"]} htmlFor="catphoto">Enter a photo</label>
@@ -274,7 +291,7 @@ if (!error) {
                         </div>
                         <button className={styles.submit} onClick={submit}>submit</button>
                         <button className={styles.cancel} onClick={cancel}>cancel</button>
-                    </div>
+                    </div>*/
                 )}
                 <div className={styles.cat}>
                         {cat.length>0 ? (
