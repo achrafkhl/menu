@@ -2,6 +2,7 @@ import styles from "./main.module.css"
 import supabase from "../../config/supabaseClient";
 import { useState,useEffect } from "react";
 import { useNavigate,Link } from "react-router-dom";
+import { FaSpinner } from "react-icons/fa";
 import Cat from "./cat";
 import Dish from "./dish";
 import QRCodeDownload from "../../config/QRCodeDownload";
@@ -28,6 +29,7 @@ function Main() {
     const [popPrice,setPopPrice] = useState(false);
     const [slug,setSlug] = useState("");
     const [signout,setSignout] = useState(false);
+    const [loadingModal, setLoadingModal] = useState(false);
     const userId = sessionStorage.getItem("userId");
     const navigate = useNavigate();
 
@@ -95,43 +97,39 @@ function Main() {
 }, [navigate,userId]);
     
     const handle = () =>setPop(true);
-    const cancel = () =>setPop(false);
-    const cancelDish = () =>setPopDish(false)
+    const cancel = () =>{setPop(false); setCatin(""); setFile("")};
+    const cancelDish = () =>{setPopDish(false); setDishin(""); setDishPhoto(""); setDishPrice("")}
     const addDish = () =>setPopDish(true)
     const submit = async() => {
+        setLoadingModal(true);
         try{
-        if(!catin||!file){
-            alert("you need to fill the inputs")
-            return;
-        }
-        
-        const fileName = `${Date.now()}-${file.name}`;
-
+            if(!catin||!file){
+                alert("you need to fill the inputs")
+                setLoadingModal(false);
+                return;
+            }
+            const fileName = `${Date.now()}-${file.name}`;
             const { error: fetchError } = await supabase.storage
                 .from("avatar")
                 .upload(`public/${fileName}`, file, { cacheControl: "3600", upsert: false });
-
             if (fetchError) {
                 console.error("Upload error:", fetchError.message);
+                setLoadingModal(false);
                 return;
             }
-
             const { data } = supabase.storage.from("avatar").getPublicUrl(`public/${fileName}`);
             const publicUrl = data.publicUrl;
-
-             const { data: insertedData, error } = await supabase.from('categories').insert({
-    name: catin,
-    image_url: publicUrl,
-    restaurant_id: userId,
-}).select().single(); // <- gets back the inserted row
-
-if (!error) {
-    setCat(prev => [...prev, { ...insertedData, dishes: [] }]); // update local UI
-    setSelectedProduct(insertedData); // optional: auto select
-}
-
-            else {
+            const { data: insertedData, error } = await supabase.from('categories').insert({
+                name: catin,
+                image_url: publicUrl,
+                restaurant_id: userId,
+            }).select().single();
+            if (!error) {
+                setCat(prev => [...prev, { ...insertedData, dishes: [] }]);
+                setSelectedProduct(insertedData);
+            } else {
                 console.log('Error inserting data:', error);
+                setLoadingModal(false);
                 return;
             }
             setPop(false);
@@ -139,46 +137,43 @@ if (!error) {
         catch(error){
             console.log(error);
         }
+        setLoadingModal(false);
     }
 
     const submitDish = async() => {
+        setLoadingModal(true);
         try{
-        if(!dishin||!dishPhoto||!dishPrice){
-            alert("you need to fill the inputs");
-            return;
-        }
-        
-        const fileName = `${Date.now()}-${dishPhoto.name}`;
-
+            if(!dishin||!dishPhoto||!dishPrice){
+                alert("you need to fill the inputs");
+                setLoadingModal(false);
+                return;
+            }
+            const fileName = `${Date.now()}-${dishPhoto.name}`;
             const { error: fetchError } = await supabase.storage
                 .from("avatar")
                 .upload(`public/${fileName}`, dishPhoto, { cacheControl: "3600", upsert: false });
-
             if (fetchError) {
                 console.error("Upload error:", fetchError.message);
+                setLoadingModal(false);
                 return;
             }
-
             const { data } = supabase.storage.from("avatar").getPublicUrl(`public/${fileName}`);
             const publicUrl = data.publicUrl;
-
-             const { data: insertedDish, error } = await supabase.from('dishes').insert({
-    name: dishin,
-    image_url: publicUrl,
-    price: dishPrice,
-    category_id: selectedProduct.id,
-}).select().single();
-
-if (!error) {
-    setCat(prevCats => prevCats.map(cat =>
-        cat.id === selectedProduct.id
-            ? { ...cat, dishes: [...(cat.dishes || []), insertedDish] }
-            : cat
-    ));
-}
-
-            else {
+            const { data: insertedDish, error } = await supabase.from('dishes').insert({
+                name: dishin,
+                image_url: publicUrl,
+                price: dishPrice,
+                category_id: selectedProduct.id,
+            }).select().single();
+            if (!error) {
+                setCat(prevCats => prevCats.map(cat =>
+                    cat.id === selectedProduct.id
+                        ? { ...cat, dishes: [...(cat.dishes || []), insertedDish] }
+                        : cat
+                ));
+            } else {
                 console.log('Error inserting data:', error);
+                setLoadingModal(false);
                 return;
             }
             setPopDish(false);
@@ -186,6 +181,7 @@ if (!error) {
         catch(error){
             console.log(error);
         }
+        setLoadingModal(false);
     }
     // Delete handlers
     const handleDeleteCat = (cat) => {
@@ -246,12 +242,16 @@ if (!error) {
     }
 
     const ConfirmPrice = async() => {
+        setLoadingModal(true);
         const {error} = await supabase.from("dishes").update({price:newPrice}).eq('id',deleteTarget.id)
         if(error){
             console.log("error changing the price:",error);
+            setLoadingModal(false);
+            return;
         }
         setNewPrice("");
         setPopPrice(false);
+        setLoadingModal(false);
     }
     
     const confirmSignOut = async() => {
@@ -300,8 +300,11 @@ if (!error) {
             {file && <span className={styles.fileName}>{file.name}</span>}
         </div>
         <div className={styles["modal-actions"]}>
-          <button className={styles.submit} onClick={submit}>Add</button>
-          <button className={styles.cancel} onClick={cancel}>Cancel</button>
+          <button className={styles.submit} onClick={submit} disabled={loadingModal} style={loadingModal ? { opacity: 0.7, cursor: 'not-allowed' } : {}}>
+            {loadingModal ? <FaSpinner className={styles.spinner} style={{ marginRight: 8, fontSize: '1.2em', verticalAlign: 'middle' }} /> : null}
+            Add
+          </button>
+          <button className={styles.cancel} onClick={cancel} disabled={loadingModal} style={loadingModal ? { opacity: 0.7, cursor: 'not-allowed' } : {}}>Cancel</button>
         </div>
       </div>
     </div>
@@ -375,8 +378,11 @@ if (!error) {
         </div>
         <input className={styles.citib} id="catin" type="number" placeholder="Enter the price" value={dishPrice} onChange={(e) => setDishPrice(e.target.value)}/>
         <div className={styles["modal-actions"]}>
-          <button className={styles.submit} onClick={submitDish}>Add</button>
-          <button className={styles.cancel} onClick={cancelDish}>Cancel</button>
+          <button className={styles.submit} onClick={submitDish} disabled={loadingModal} style={loadingModal ? { opacity: 0.7, cursor: 'not-allowed' } : {}}>
+            {loadingModal ? <FaSpinner className={styles.spinner} style={{ marginRight: 8, fontSize: '1.2em', verticalAlign: 'middle' }} /> : null}
+            Add
+          </button>
+          <button className={styles.cancel} onClick={cancelDish} disabled={loadingModal} style={loadingModal ? { opacity: 0.7, cursor: 'not-allowed' } : {}}>Cancel</button>
         </div>
       </div>
     </div>
@@ -408,16 +414,17 @@ if (!error) {
           onChange={e => setNewPrice(e.target.value)}
         />
         <div className={styles["modal-actions"]}>
-          <button className={styles.submit} onClick={ConfirmPrice}>Change</button>
-          <button className={styles.cancel} onClick={() => setPopPrice(false)}>Cancel</button>
+          <button className={styles.submit} onClick={ConfirmPrice} disabled={loadingModal} style={loadingModal ? { opacity: 0.7, cursor: 'not-allowed' } : {}}>
+            {loadingModal ? <FaSpinner className={styles.spinner} style={{ marginRight: 8, fontSize: '1.2em', verticalAlign: 'middle' }} /> : null}
+            Change
+          </button>
+          <button className={styles.cancel} onClick={() => {setPopPrice(false);setNewPrice("");}} disabled={loadingModal} style={loadingModal ? { opacity: 0.7, cursor: 'not-allowed' } : {}}>Cancel</button>
         </div>
       </div>
     </div>
   </div>
 )}
             </div>
-
-
 
         </div>
     )
