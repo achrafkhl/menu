@@ -7,8 +7,20 @@
   background: #232946;
   font-family: 'Segoe UI', Arial, sans-serif;
   color: #f4f6fa;
+  position: relative;
 }
 
+.logout{
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  color: red;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+.logout:hover {
+  opacity: 0.7;
+}
 .left {
   width: 300px;
   background: #652838;
@@ -230,6 +242,7 @@
   transition: background 0.2s, box-shadow 0.2s;
   box-shadow: 0 2px 8px rgba(58, 134, 255, 0.10);
   text-align: center;
+  transition: 0.3s;
 }
 
 .add:hover,.qr button:hover ,.show:hover {
@@ -237,6 +250,9 @@
   color: #fff !important;
   box-shadow: 0 4px 24px 0 #44485755;
   transform: scale(1.01);
+}
+.qr button:hover ,.show:hover {
+  transform : scale(1.1)
 }
 .west {
   display: flex;

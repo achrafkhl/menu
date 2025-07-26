@@ -27,6 +27,7 @@ function Main() {
     const [newPrice,setNewPrice] = useState("");
     const [popPrice,setPopPrice] = useState(false);
     const [slug,setSlug] = useState("");
+    const [signout,setSignout] = useState(false);
     const userId = sessionStorage.getItem("userId");
     const navigate = useNavigate();
 
@@ -252,10 +253,33 @@ if (!error) {
         setNewPrice("");
         setPopPrice(false);
     }
-
-
+    
+    const confirmSignOut = async() => {
+        const { error } = await supabase.auth.signOut();
+        if (error) {
+            console.error("Sign out error:", error.message);
+        }
+        sessionStorage.removeItem("userId");
+        navigate("/login");
+    };
     return(
-        <div className={styles.body}>
+        <div className={styles.body} >
+            <div className={styles.logout} onClick={() => setSignout(true)}>
+                <i className="fas fa-sign-out-alt"></i>
+            </div>
+            {signout && (
+  <div className={styles["modal-overlay"]}>
+    <div className={styles["modal-center"]}>
+      <div className={styles.pop_dish}>
+        <p>Are you sure you want to <b>SIGN OUT</b></p>
+        <div className={styles["modal-actions"]}>
+          <button className={styles.submit} onClick={confirmSignOut}>Yes</button>
+          <button className={styles.cancel} onClick={() => setSignout(false)}>No</button>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
             <div className={styles.left}>
                 <h4>Sidebar: Categories</h4>
                 {slug && (
@@ -272,7 +296,7 @@ if (!error) {
         <input className={styles.citib} id="catin" type="text" placeholder="Enter the name of the category" value={catin} onChange={(e) => setCatin(e.target.value)}/>
         <div className={styles.inside_photo}>
             <label className={styles.fileLabel} htmlFor="catphoto">Upload a photo</label>
-            <input className={styles.catphoto} id="catphoto" type="file" onChange={(e) => setFile(e.target.files[0])}/>
+            <input className={styles.catphoto} id="catphoto" type="file" accept="image/*" onChange={(e) => setFile(e.target.files[0])}/>
             {file && <span className={styles.fileName}>{file.name}</span>}
         </div>
         <div className={styles["modal-actions"]}>
@@ -346,7 +370,7 @@ if (!error) {
         <input className={styles.citib} id="catin" type="text" placeholder="Enter the name of the dish" value={dishin} onChange={(e) => setDishin(e.target.value)}/>
         <div className={styles.inside_photo}>
             <label className={styles.fileLabel} htmlFor="dishphoto">Upload a photo</label>
-            <input className={styles.catphoto} id="dishphoto" type="file" onChange={(e) => setDishPhoto(e.target.files[0])}/>
+            <input className={styles.catphoto} id="dishphoto" type="file" accept="image/*" onChange={(e) => setDishPhoto(e.target.files[0])}/>
             {dishPhoto && <span className={styles.fileName}>{dishPhoto.name}</span>}
         </div>
         <input className={styles.citib} id="catin" type="number" placeholder="Enter the price" value={dishPrice} onChange={(e) => setDishPrice(e.target.value)}/>
