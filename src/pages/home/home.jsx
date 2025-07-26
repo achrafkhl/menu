@@ -34,18 +34,18 @@ function Home() {
             {/* Placeholder for QR code with brown/grey palette */}
             <svg width="90" height="90" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect width="90" height="90" rx="16" fill="#f5f5f5"/>
-              <rect x="18" y="18" width="18" height="18" rx="4" fill="#a1887f"/>
-              <rect x="54" y="18" width="18" height="18" rx="4" fill="#a1887f"/>
-              <rect x="18" y="54" width="18" height="18" rx="4" fill="#a1887f"/>
-              <rect x="54" y="54" width="18" height="18" rx="4" fill="#a1887f"/>
-              <rect x="36" y="36" width="18" height="18" rx="4" fill="#bca18c"/>
+              <rect x="18" y="18" width="18" height="18" rx="4" fill="rgba(107, 47, 63, 1)"/>
+              <rect x="54" y="18" width="18" height="18" rx="4" fill="rgba(107, 47, 63, 1)"/>
+              <rect x="18" y="54" width="18" height="18" rx="4" fill="rgba(107, 47, 63, 1)"/>
+              <rect x="54" y="54" width="18" height="18" rx="4" fill="rgba(107, 47, 63, 1)"/>
+              <rect x="36" y="36" width="18" height="18" rx="4" fill="#7C4855"/>
             </svg>
           </div>
           <div className={styles.qrLabel}>Scan to view the menu</div>
         </div>
         <div className={styles.menuPreview}>
           <strong>Menu Preview</strong>
-          <div style={{marginTop: '0.5rem', color: '#a1887f', fontSize: '1rem'}}>Add your dishes and categories after signing up!</div>
+          <div style={{marginTop: '0.5rem', color: 'rgba(107, 47, 63, 1)', fontSize: '1rem'}}>Add your dishes and categories after signing up!</div>
         </div>
       </div>
     </div>

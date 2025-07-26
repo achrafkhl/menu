@@ -8,7 +8,7 @@
 /* Selected file name style for user_photo */
 .fileName {
   margin-left: 0.7rem;
-  color: #00897b;
+  color: #7C4855;
   font-size: 0.95rem;
   font-weight: 500;
   word-break: break-all;
@@ -32,11 +32,11 @@
   filter: blur(8px);
   z-index: 0;
 }
-.c1 { width: 160px; height: 160px; top: 8%; left: 12%; background: #bca18c; }
-.c2 { width: 110px; height: 110px; top: 80%; left: 7%; background: #bca18c; }
-.c3 { width: 90px; height: 90px; top: 12%; right: 12%; background: #a1887f; }
-.c4 { width: 70px; height: 70px; bottom: 18%; right: 18%; background: #d7ccc8; }
-.c5 { width: 50px; height: 50px; bottom: 7%; left: 45%; background: #bca18c; }
+.c1 { width: 160px; height: 160px; top: 8%; left: 12%; background: #350511; }
+.c2 { width: 110px; height: 110px; top: 80%; left: 7%; background: #5c0a1f; }
+.c3 { width: 90px; height: 90px; top: 12%; right: 12%; background: #832940; }
+.c4 { width: 70px; height: 70px; bottom: 18%; right: 18%; background: #350511; }
+.c5 { width: 50px; height: 50px; bottom: 7%; left: 45%; background: #6a0720; }
 
 .login {
   position: relative;
@@ -59,7 +59,7 @@ h1 {
   text-align: center;
   font-size: 2rem;
   font-weight: 700;
-  color: #795548;
+  color: #652838;
   margin-bottom: 0.7rem;
   letter-spacing: 1px;
 }
@@ -71,13 +71,13 @@ h1 {
 :global(.fa-user),
 :global(.fa-lock),
 :global(.fa-utensils) {
-  color: #a1887f;
+  color: #652838;
   font-size: 1.3rem;
 }
 
 /* Home icon: bigger and black */
 .ii :global(.fa-home) {
-  color: #795548 !important;
+  color: #6d132b !important;
   font-size: 1.7rem !important;
 }
 .ii {
@@ -106,7 +106,7 @@ h1 {
 .pass:focus-within,
 .conf:focus-within,
 .user_photo:focus-within {
-  border: 2px solid #894b00;
+  border: 2px solid #7C4855;
   box-shadow: 0 0 0 2px rgba(38, 198, 218, 0.10);
   /* Add relative for pseudo-element */
   position: relative;
@@ -126,8 +126,8 @@ h1 {
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: #8d4316;
-  box-shadow: 0 0 8px 2px #da6b26;
+  background: #782e40;
+  box-shadow: 0 0 8px 2px #7C4855;
   z-index: 2;
   pointer-events: none;
   animation: roll-light 4s linear infinite;
@@ -168,7 +168,7 @@ input[type="file"].catphoto {
   border: none;
   background: transparent;
   font-size: 1rem;
-  color: #00897b;
+  color: #7C4855;
   padding: 0.5rem 0;
   display: none;
 }
@@ -204,7 +204,7 @@ input[type="file"].catphoto {
 .body button {
   width: 100%;
   padding: 0.85rem 0;
-  background: linear-gradient(90deg, #a1887f 0%, #bca18c 100%);
+  background: linear-gradient(90deg, #7C4855 0%, #501C29 100%);
   color: #fff;
   font-size: 1.1rem;
   font-weight: 600;
@@ -218,7 +218,7 @@ input[type="file"].catphoto {
 }
 
 button:hover {
-  background: linear-gradient(90deg, #bca18c 0%, #a1887f 100%);
+  background: linear-gradient(90deg, #501C29 0%, #7C4855 100%);
   transform: translateY(-2px) scale(1.03);
 }
 
@@ -229,7 +229,7 @@ p {
 }
 
 .strong {
-  color: #894200;
+  color: #7C4855;
   cursor: pointer;
 }
 
