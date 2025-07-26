@@ -143,7 +143,7 @@ input[type="password"]:focus {
 
 
 
-button {
+.body button {
   width: 100%;
   padding: 0.85rem 0;
   background: linear-gradient(90deg, #a1887f 0%, #bca18c 100%);

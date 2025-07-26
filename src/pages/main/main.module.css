@@ -11,7 +11,7 @@
 
 .left {
   width: 300px;
-  background: #1a1f2b;
+  background: #350511;
   border-right: 2px solid #31364a;
   padding: 28px 18px;
   box-sizing: border-box;
@@ -22,7 +22,7 @@
 }
 
 .left h4 {
-  color: #8da2fb;
+  color: #c36769;
   font-size: 1.05rem;
   margin-bottom: 6px;
   letter-spacing: 0.5px;
@@ -42,20 +42,18 @@
     width: 80px;
     height: 80px;
 }
-
-.left button {
+.addcat{
   background: #F77F00;
+  
   color: #f4f6fa;
   border: none;
   padding: 9px 16px;
   border-radius: 8px;
-  font-size: 1rem;
+  font-size: 1.1rem;
   cursor: pointer;
-  margin-bottom: 10px;
   transition: background 0.2s, box-shadow 0.2s;
   display: flex;
   align-items: center;
-  gap: 6px;
   box-shadow: 0 2px 8px rgba(247, 127, 0, 0.10);
 }
 
@@ -95,12 +93,14 @@
 .catphoto {
   display: none;
 }
-
+.inside{
+  margin-bottom: 10px;
+}
 .file-label {
   display: inline-block;
-  background: #F77F00;
+  background: linear-gradient(90deg, #8C4A4C 0%, #501C29 100%);
   color: #f4f6fa;
-  padding: 7px 13px;
+  padding: 7px 5px;
   border-radius: 6px;
   font-size: 1rem;
   font-weight: 500;
@@ -110,18 +110,15 @@
   transition: background 0.2s, box-shadow 0.2s;
   box-shadow: 0 2px 8px rgba(247, 127, 0, 0.10);
 }
-.file-label:hover {
-  background: #3A86FF;
-  color: #f4f6fa;
-}
+
 .selected-file {
-  color: #8da2fb;
-  font-size: 0.95rem;
-  margin-left: 10px;
+  color: #8C4A4C;
+  font-size: 0.8rem;
+  margin-left: 7px;
 }
 
 .submit {
-  background: #F77F00;
+  background: #3A86FF;
   color: #f4f6fa;
   border: none;
   padding: 7px 13px;
@@ -169,7 +166,7 @@
 .right {
   flex: 1;
   padding: 32px 20px;
-  background: #2a2f3a;
+  background: #501C29;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -177,7 +174,7 @@
 }
 
 .right h4 {
-  color: #8da2fb;
+  color: #c36769;
   font-size: 1.05rem;
   margin-bottom: 6px;
   letter-spacing: 0.5px;
@@ -188,7 +185,7 @@
   align-items: center;
   flex-direction: row;
   gap: 14px;
-  background: #232946;
+  background: #7C4855;
   border-radius: 10px;
   padding: 14px 16px;
   box-shadow: 0 2px 8px rgba(58, 134, 255, 0.04);
@@ -252,14 +249,6 @@
   background: linear-gradient(90deg, #22c55e 0%, #10b981 100%);
 }
 
-.pop_dish {
-  background: transparent;
-  border: none;
-  box-shadow: none;
-  padding: 0;
-  margin: 0;
-  max-width: unset;
-}
 
 .radio {
   margin-bottom: 8px;
@@ -271,7 +260,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  background: #232946;
+  background: #7C4855;
   border-radius: 8px;
   padding: 8px 12px;
   cursor: pointer;
@@ -305,9 +294,9 @@
 }
 
 .ster:hover {
-  background: #2a2f3a;
-  border: 1.5px solid #3A86FF;
-  box-shadow: 0 2px 8px rgba(58, 134, 255, 0.10);
+  background: #533039;
+  border: 1.5px solid #2a191d;
+  box-shadow: 0 2px 8px rgba(154, 25, 2, 0.1);
 }
 
 .ster img {
@@ -315,13 +304,13 @@
   height: 32px;
   object-fit: cover;
   border-radius: 6px;
-  border: 1px solid #3A86FF;
+  border: 1px solid #8C4A4C;
   background: #232946;
 }
 
 .ster p {
   margin: 0;
-  color: #8da2fb;
+  color: #b0b0b0;
   font-size: 1rem;
   font-weight: 500;
 }
@@ -330,7 +319,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: #232946;
+  background: #7C4855;
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(58, 134, 255, 0.06);
   padding: 14px 10px;
@@ -404,27 +393,69 @@
   align-items: center;
   justify-content: center;
 }
-
+.modal-center{
+  background-color: #501C29;
+  padding: 1.2rem 1.7rem !important;
+  text-align: center;
+  border: 2px solid #8C4A4C;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(58, 134, 255, 0.08);
+  min-width: 260px;
+  max-width: 350px;
+  animation: modalFadeIn 0.25s cubic-bezier(0.4,0,0.2,1);
+}
 .modal-title {
   font-size: 1.3rem;
   font-weight: 600;
-  color: #8da2fb;
+  color: #e8ecff;
   margin-bottom: 18px;
   letter-spacing: 0.5px;
   text-align: center;
 }
 
+.modal-center p {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #e8ecff;
+  margin-bottom: 18px;
+  text-align: center;
+}
+.modal-center input {
+  width: 80%;
+  padding: 8px;
+  border: none;
+  border-radius: 6px;
+  background: #7C4855;
+  color: #f4f6fa;
+  font-size: 1rem;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+}
+.modal-form input{
+  width: 95%;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  background: #7C4855;
+  color: #f4f6fa;
+  font-size: 1rem;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+}
+.inside_photo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
 .modal-form {
   display: flex;
   flex-direction: column;
   gap: 14px;
-  background: #232946;
   border-radius: 10px;
   padding: 18px 12px;
-  box-shadow: 0 2px 12px rgba(58, 134, 255, 0.08);
-  border: 1.5px solid #31364a;
   min-width: 260px;
   max-width: 350px;
+  align-items: center;
 }
 
 @keyframes modalFadeIn {
@@ -520,9 +551,9 @@ i{
 }
 
 .radio input[type="radio"]:checked + label {
-  background: #7da0ca;
-  border: 2px solid #3A86FF;
-  box-shadow: 0 2px 8px #3A86FF33;
+  background: #A49DA5;
+  border: 2px solid #8C4A4C;
+  box-shadow: 0 2px 8px #8C4A4C;
   color: #232946;
 }
 
@@ -538,16 +569,16 @@ i{
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.08rem;
+  font-size: 1.05rem;
   color: #fff;
-  background: linear-gradient(90deg, #22c55e 0%, #10b981 100%);
-  padding: 0.65rem 1.4rem;
+  background: linear-gradient(90deg, #8C4A4C 0%, #8C4A4C 100%);
+  padding: 0.5rem 1.2rem;
   border-radius: 0.7rem;
   font-weight: 700;
   box-shadow: 0 4px 16px rgba(16, 185, 129, 0.18);
   margin-bottom: 0.3rem;
   letter-spacing: 0.5px;
-  border: 1px solid #22c55e;
+  border: 1px solid ;
   cursor: pointer;
   transition: background 0.2s, transform 0.18s, box-shadow 0.2s;
   outline: none;
@@ -556,7 +587,8 @@ i{
   border-image: none;
 }
 .fileLabel:hover, .fileLabel:active {
-  background: linear-gradient(90deg, #10b981 0%, #22c55e 100%);
-  box-shadow: 0 8px 32px rgba(16, 185, 129, 0.28);
-  transform: translateY(-2px) scale(1.06);
+  background: #444857 !important;
+  color: #fff !important;
+  box-shadow: 0 4px 24px 0 #44485755;
+  transform: scale(1.05);
 }

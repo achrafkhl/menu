@@ -134,10 +134,10 @@ h1 {
   100% { left: -6px; top: -6px; }
 }
 
-input[type="email"],
-input[type="number"],
-input[type="text"],
-input[type="password"] {
+.body input[type="email"],
+.body input[type="number"],
+.body input[type="text"],
+.body input[type="password"] {
   flex: 1;
   border: none !important;
   background: transparent;
@@ -194,7 +194,7 @@ input[type="file"].catphoto {
 }
 
 
-button {
+.body button {
   width: 100%;
   padding: 0.85rem 0;
   background: linear-gradient(90deg, #a1887f 0%, #bca18c 100%);

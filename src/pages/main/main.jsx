@@ -263,13 +263,15 @@ if (!error) {
                     <img src={slug.logo_url} alt={slug.name} />
                     <h3>{slug.name.toUpperCase()}</h3>
                 </div>)}
-                <button onClick={handle}><span><b>+</b></span> add categorie</button>
+                <button onClick={handle} className={styles.addcat}><span><b>+</b></span> add categorie</button>
                 {pop && (
                     <div className={styles.in}>
-                        <input className={styles.citib} id="catin" type="text" placeholder="enter the name of the category" value={catin} onChange={(e) => setCatin(e.target.value)}/>
-                        <label className={styles["file-label"]} htmlFor="catphoto">Enter a photo</label>
-                        <input className={styles.catphoto} id="catphoto" type="file" onChange={(e) => setFile(e.target.files[0])}/>
-                        {file && <span className={styles["selected-file"]}>{file.name}</span>}
+                        <input className={styles.citib} id="catin" type="text" placeholder="enter a category" value={catin} onChange={(e) => setCatin(e.target.value)}/>
+                        <div className={styles.inside}>
+                            <label className={styles["file-label"]} htmlFor="catphoto">Enter a photo</label>
+                            <input className={styles.catphoto} id="catphoto" type="file" onChange={(e) => setFile(e.target.files[0])}/>
+                            {file && <span className={styles["selected-file"]}>{file.name}</span>}
+                        </div>
                         <button className={styles.submit} onClick={submit}>submit</button>
                         <button className={styles.cancel} onClick={cancel}>cancel</button>
                     </div>
@@ -325,9 +327,11 @@ if (!error) {
       <div className={styles["modal-title"]}>Add New Dish</div>
       <div className={styles["modal-form"]}>
         <input className={styles.citib} id="catin" type="text" placeholder="Enter the name of the dish" value={dishin} onChange={(e) => setDishin(e.target.value)}/>
-        <label className={styles.fileLabel} htmlFor="dishphoto">Upload a photo</label>
-        <input className={styles.catphoto} id="dishphoto" type="file" onChange={(e) => setDishPhoto(e.target.files[0])}/>
-        {dishPhoto && <span className={styles.fileName}>{dishPhoto.name}</span>}
+        <div className={styles.inside_photo}>
+            <label className={styles.fileLabel} htmlFor="dishphoto">Upload a photo</label>
+            <input className={styles.catphoto} id="dishphoto" type="file" onChange={(e) => setDishPhoto(e.target.files[0])}/>
+            {dishPhoto && <span className={styles.fileName}>{dishPhoto.name}</span>}
+        </div>
         <input className={styles.citib} id="catin" type="number" placeholder="Enter the price" value={dishPrice} onChange={(e) => setDishPrice(e.target.value)}/>
         <div className={styles["modal-actions"]}>
           <button className={styles.submit} onClick={submitDish}>Submit</button>
