@@ -1,0 +1,276 @@
+/* Spinner animation for loading state */
+.spinner {
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+/* Selected file name style for user_photo */
+.fileName {
+  margin-left: 0.7rem;
+  color: #7C4855;
+  font-size: 0.95rem;
+  font-weight: 500;
+  word-break: break-all;
+}
+/* Background and layout */
+.body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(120deg, #f5f5f5 0%, #eee9e4 100%);
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  position: relative;
+}
+
+/* Decorative glassmorphism shapes */
+.c1, .c2, .c3, .c4, .c5 {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.18;
+  filter: blur(8px);
+  z-index: 0;
+}
+.c1 { width: 160px; height: 160px; top: 8%; left: 12%; background: #350511; }
+.c2 { width: 110px; height: 110px; top: 80%; left: 7%; background: #5c0a1f; }
+.c3 { width: 90px; height: 90px; top: 12%; right: 12%; background: #832940; }
+.c4 { width: 70px; height: 70px; bottom: 18%; right: 18%; background: #350511; }
+.c5 { width: 50px; height: 50px; bottom: 7%; left: 45%; background: #6a0720; }
+
+.login {
+  position: relative;
+  z-index: 1;
+  background: rgba(255, 254, 254, 0.92);
+  padding: 2.2rem 1.5rem;
+  border-radius: 1.25rem;
+  box-shadow: 0 8px 32px rgba(121, 85, 72, 0.10);
+  width: 100%;
+  max-width: 370px;
+  margin: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  backdrop-filter: blur(2px);
+  border: 1px solid #d7ccc8;
+}
+
+h1 {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #652838;
+  margin-bottom: 0.7rem;
+  letter-spacing: 1px;
+}
+
+
+/* All icons green and same size using :global for CSS modules */
+:global(.fa-envelope),
+:global(.fa-phone),
+:global(.fa-user),
+:global(.fa-lock),
+:global(.fa-utensils) {
+  color: #652838;
+  font-size: 1.3rem;
+}
+
+/* Home icon: bigger and black */
+.ii :global(.fa-home) {
+  color: #6d132b !important;
+  font-size: 1.7rem !important;
+}
+.ii {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+}
+
+.email, .phone, .user_name, .pass, .conf, .user_photo {
+  display: flex;
+  align-items: center;
+  background: #f5f5f5;
+  border-radius: 0.7rem;
+  padding: 0.7rem 1rem;
+  margin-bottom: 0.4rem;
+  box-shadow: 0 2px 8px rgba(38, 198, 218, 0.04);
+  gap: 0.7rem;
+  border: 1px solid #cacaca;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+/* Highlight container border green when input inside is focused */
+.email:focus-within,
+.phone:focus-within,
+.user_name:focus-within,
+.pass:focus-within,
+.conf:focus-within,
+.user_photo:focus-within {
+  border: 2px solid #7C4855;
+  box-shadow: 0 0 0 2px rgba(38, 198, 218, 0.10);
+  /* Add relative for pseudo-element */
+  position: relative;
+}
+
+/* Rolling single green light effect using ::after */
+.email:focus-within::after,
+.phone:focus-within::after,
+.user_name:focus-within::after,
+.pass:focus-within::after,
+.conf:focus-within::after,
+.user_photo:focus-within::after {
+  content: "";
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #782e40;
+  box-shadow: 0 0 8px 2px #7C4855;
+  z-index: 2;
+  pointer-events: none;
+  animation: roll-light 4s linear infinite;
+}
+
+@keyframes roll-light {
+  0%   { left: -6px; top: -6px; }
+  35%  { left: calc(100% - 6px); top: -6px; }
+  50%  { left: calc(100% - 6px); top: calc(100% - 6px); }
+  85%  { left: -6px; top: calc(100% - 6px); }
+  100% { left: -6px; top: -6px; }
+}
+
+.body input[type="email"],
+.body input[type="number"],
+.body input[type="text"],
+.body input[type="password"] {
+  flex: 1;
+  border: none !important;
+  background: transparent;
+  font-size: 1rem;
+  outline: none;
+  padding: 0.5rem 0;
+  color: #693c00;
+  transition: border 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+/* Highlight border green on focus */
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="text"]:focus,
+input[type="password"]:focus {
+  border: none !important;
+  box-shadow: none;
+}
+
+input[type="file"].catphoto {
+  border: none;
+  background: transparent;
+  font-size: 1rem;
+  color: #7C4855;
+  padding: 0.5rem 0;
+  display: none;
+}
+
+.fileLabel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1rem;
+  color: black;
+  background: linear-gradient(90deg,rgb(151, 71, 71)  0%, rgb(209, 168, 168) 100%);
+  padding: 0.45rem 1.1rem;
+  border-radius: 0.6rem;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.12);
+  margin-bottom: 0.3rem;
+  letter-spacing: 0.5px;
+  border: 1px solid #7c4f38;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  outline: none;
+  text-transform: none;
+  text-align: left;
+  border-image: none;
+}
+.fileLabel:hover {
+  background: linear-gradient(90deg, rgb(209, 168, 168) 0%, rgb(151, 71, 71) 100%);
+  box-shadow: 0 8px 32px rgba(237, 101, 15, 0.28);
+  transform: translateY(-2px) scale(1.06);
+}
+
+
+.body button {
+  width: 100%;
+  padding: 0.85rem 0;
+  background: linear-gradient(90deg, #7C4855 0%, #501C29 100%);
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 0.7rem;
+  box-shadow: 0 4px 16px rgba(121, 85, 72, 0.10);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  margin-top: 0.4rem;
+  letter-spacing: 0.5px;
+}
+
+button:hover {
+  background: linear-gradient(90deg, #501C29 0%, #7C4855 100%);
+  transform: translateY(-2px) scale(1.03);
+}
+
+p {
+  text-align: center;
+  color: #607d8b;
+  font-size: 1rem;
+}
+
+.strong {
+  color: #7C4855;
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .body {
+    justify-content: flex-start;
+    padding-top: 0;
+  }
+  .login {
+    padding: 1rem 0.3rem;
+    max-width: 98vw;
+    border-radius: 0.8rem;
+  }
+  h1 {
+    font-size: 1.3rem;
+  }
+  .email, .phone, .user_name, .pass, .conf, .user_photo {
+    padding: 0.4rem 0.4rem;
+    font-size: 0.95rem;
+  }
+  button {
+    font-size: 0.95rem;
+    padding: 0.6rem 0;
+  }
+}
+
+/* Error message styles */
+p[id^="err-"] {
+  color: #d32f2f !important;
+  font-size: 0.95rem;
+  margin: 0.2rem 0 0.5rem 0;
+  text-align: left;
+  font-weight: 500;
+}
+
+/* Input border for error (overridden by JS) */
+input[style*="red"] {
+  border: solid 2px #d32f2f !important;
+}
+.user_photo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
