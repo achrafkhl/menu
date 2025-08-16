@@ -22,6 +22,9 @@ function App() {
         
         <Route path='/main' element={<PrivateRoute><Main/></PrivateRoute>}/>
         <Route path='*' element={<h1>404 Not Found</h1>} />
+        <Route path="/verified" element={<h1>Email Verified ✅</h1>} />
+        <Route path="/verify-failed" element={<h1>Verification Failed ❌</h1>} />
+
       </Routes>
     </Router>
   );

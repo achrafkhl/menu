@@ -91,16 +91,6 @@ function Signup() {
         return;
       }
       
-      const users = await fetch("http://192.168.1.5:5000/api/users")
-      .then((res) => res.json());
-
-const existingUser = users.find(user => user.email === email || user.phone === phone);
-      if (existingUser) {
-        if (existingUser.email === email) showError("imail", "err-mail", "Email already registered", "sign-mail");
-        if (existingUser.phone === phone) showError("passw", "err-phone", "Phone number already registered", "sign-tele");
-        return;
-      }
-      
     const formData = new FormData();
     formData.append("avatar", file);
     formData.append("username", name);
@@ -108,71 +98,28 @@ const existingUser = users.find(user => user.email === email || user.phone === p
     formData.append("email", email);
     formData.append("slug", name.toLowerCase().replace(/\s+/g, '-'));
     formData.append("phone", phone);
-      fetch("http://192.168.1.5:5000/api/signup", {
+      const res = await fetch("http://192.168.1.5:5000/api/signup", {
         method: "POST",
         body: formData,
       })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
+      const data = await res.json();
+
+        if (!res.ok) {
+          if(data.error==="Email found"){
+            return showError("imail", "err-mail", "Email already registered", "sign-mail");
+          } 
+          else if(data.error==="Phone found"){
+            return showError("passw", "err-phone", "Phone number already registered", "sign-tele");
+          }
+          else {
+          console.log("error:",data.error);
+          return;
+        }}
       console.log("user created succesfuly");
-      /*
-      const { data, error } = await supabase
-        .from("profiles")
-        .select("email, phone")
-        .or(`email.eq.${email},phone.eq.${phone}`);
-      if (error) {
-        console.log(error.message);
-      }
-      if (data && data.length > 0) {
-        data.forEach(user => {
-          if (user.email === email) showError("imail", "err-mail", "Email already registered", "sign-mail");
-          if (user.phone === phone) showError("passw", "err-phone", "Phone number already registered", "sign-tele");
-        });
-        return;
-      }
-
-      // Now safe to sign up
-      const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
-        email,
-        password: pass,
-      });
-      if (signUpError) {
-        console.log("Signup error:", signUpError.message);
-        return;
-      }
-
-      // Upload image
-      const fileName = `${Date.now()}-${file.name}`;
-      const { error: uploadError } = await supabase.storage
-        .from("avatar")
-        .upload(`public/${fileName}`, file, { cacheControl: "3600", upsert: false });
-
-      if (uploadError) {
-        console.error("Upload error:", uploadError.message);
-        return;
-      }
-      const { data: photoData } = supabase.storage.from("avatar").getPublicUrl(`public/${fileName}`);
-      const publicUrl = photoData.publicUrl;
-
-      // Insert into profiles
-      const userId = signUpData.user?.id;
-      const { error: insertError } = await supabase.from("profiles").insert([
-        { id: userId, email, phone, name, logo_url: publicUrl, slug },
-      ]);
-
-      if (insertError) {
-        alert("Error creating account!");
-        return;
-      }
-
-      alert("Sign-up successful! Check your email for verification.");
-      window.location.href = "/login";
-*/
-} finally {
+      alert("check ur email for verifaction")
+} catch(error){
+    console.log("catched error:",error)
+}finally {
       setLoading(false);
     }
   };

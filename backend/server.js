@@ -7,7 +7,7 @@ import authRoutes from "./routes/authRoutes.js";
 import pageRoutes from "./routes/pagesRoutes.js";
 import { authMiddleware } from "./middleware/authMiddleware.js";
 import cookieParser from "cookie-parser";
-import menuRoute from "./routes/menuRoute.js"; 
+import menuRoute from "./routes/menuRoute.js";
 
 dotenv.config();
 const app = express();

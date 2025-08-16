@@ -51,6 +51,14 @@ function Login() {
         err.innerText = "Incorrect email or phone number";
         par.appendChild(err);
         document.getElementById('login-mail').style.border = "solid 2px red";
+      } else if (data.error === "User not verified") {
+        const par = document.getElementById("imail");
+        const err = document.createElement("p");
+        err.id = "err-mail";
+        err.style.color = "red";
+        err.innerText = "User not verified";
+        par.appendChild(err);
+        document.getElementById('login-mail').style.border = "solid 2px red";
       } else if (data.error === "Invalid password") {
         const par = document.getElementById("passw");
         const err = document.createElement("p");
