@@ -44,10 +44,8 @@ export const getDish = async (req, res) => {
     const { categoryId } = req.query;
     try {
         const dishes = await db.collection("dishes").find({ categoryId:categoryId }).toArray();
-        if (!dishes.length) {
-            return res.status(404).json({ error: "Dishes not found" });
-        }
-        res.status(200).json({ dishes , message: "Dishes fetched successfully" });
+
+        res.status(200).json({ dishes ,message: dishes.length ? "Dishes fetched successfully" : "No dishes found" });
     } catch (error) {
         console.error("Error during getting dish:", error);
         res.status(500).json({ error: "Internal Server Error" });

@@ -26,6 +26,8 @@ function Main() {
     const [signout,setSignout] = useState(false);
     const [loadingModal, setLoadingModal] = useState(false);
     const [userId,setUserId]= useState("");
+    const [reload, setReload] = useState(false);
+
     const navigate = useNavigate();
 
 useEffect(() => {
@@ -75,7 +77,7 @@ useEffect(()=>{
 },[userId])
 
 useEffect(()=>{
-    const fetchCat = async() => {
+    const fetchDish = async() => {
         if (!selectedProduct || !selectedProduct._id) {
             return;
         }
@@ -89,14 +91,13 @@ useEffect(()=>{
             if (res.ok) {
                 setDish(data.dishes || "");
             } else {
-                setDish([]);
                 console.error("Error:", data.error);
             }
         } catch (err) {
             console.error("Error connecting to server:", err);
         }
     };
-    fetchCat();
+    fetchDish();
 },[selectedProduct])
 
 useEffect(()=>{
@@ -190,7 +191,7 @@ useEffect(() => {
         formData.append("avatar", dishPhoto);
         formData.append("price", dishPrice);
 
-        const response = await fetch("http://192.168.1.5:500/api/main/dishes", {
+        const response = await fetch("http://192.168.1.5:5000/api/main/dishes", {
             method: "POST",
             credentials: "include",
             body: formData,
@@ -205,6 +206,7 @@ useEffect(() => {
 
         console.log("Dish created successfully");
         setDish(prev => [...prev, data.dish]);
+        setReload(prev => !prev);
         setPopDish(false);
     } catch (error) {
         console.error("Error creating dish:", error);
@@ -260,6 +262,7 @@ useEffect(() => {
       } else {
         console.log("category deleted with success");
         setDish(prev => prev.filter(d => d._id !== deleteTarget._id));
+        setReload(prev => !prev);
       }
     }
   } catch (error) {
@@ -384,7 +387,7 @@ useEffect(() => {
                         {cat.length>0 ? (
                             <div className={styles.cat_filter}>
                                 {cat.map(cats=>(
-                            <Cat key={cats._id} cats={cats} onClick={() => {
+                            <Cat key={cats._id} cats={cats} reload={reload} setReload={setReload} onClick={() => {
                                             setSelectedProduct(cats);
                                         }}
                                         isSelected={selectedProduct?._id === cats._id}
