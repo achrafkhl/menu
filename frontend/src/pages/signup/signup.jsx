@@ -91,7 +91,7 @@ function Signup() {
         return;
       }
       
-      const users = await fetch("http://localhost:5000/api/users")
+      const users = await fetch("http://192.168.1.5:5000/api/users")
       .then((res) => res.json());
 
 const existingUser = users.find(user => user.email === email || user.phone === phone);
@@ -108,7 +108,7 @@ const existingUser = users.find(user => user.email === email || user.phone === p
     formData.append("email", email);
     formData.append("slug", name.toLowerCase().replace(/\s+/g, '-'));
     formData.append("phone", phone);
-      fetch("http://localhost:5000/api/signup", {
+      fetch("http://192.168.1.5:5000/api/signup", {
         method: "POST",
         body: formData,
       })

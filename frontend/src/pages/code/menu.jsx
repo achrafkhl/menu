@@ -11,7 +11,7 @@ function Menu({cats,dishes}) {
     return(
         <div className={styles.menu_column}>
             <div className={styles["cat-header"]}>
-                <img src={`http://localhost:5000${cats.avatar}`} alt={cats.name} />
+                <img src={`http://192.168.1.5:5000${cats.avatar}`} alt={cats.name} />
                 <h5>{cats.name}</h5>
             </div>
             <div className={styles.dish}>

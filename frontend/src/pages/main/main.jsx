@@ -32,7 +32,7 @@ useEffect(() => {
     const fetchData = async () => {
         
         try {
-            const res = await fetch("http://localhost:5000/api/main", {
+            const res = await fetch("http://192.168.1.5:5000/api/main", {
                 method: "GET",
                 credentials: "include" // Send cookies with request
             });  
@@ -45,7 +45,7 @@ useEffect(() => {
             }
         } catch (err) {
             console.error("Error connecting to server:", err);
-        }
+        }   
     };
 
     fetchData();
@@ -55,7 +55,7 @@ useEffect(()=>{
     const fetchCat = async() => {
         if(!userId) return
         try{
-            const res = await fetch(`http://localhost:5000/api/main/categories?userId=${userId}`, {
+            const res = await fetch(`http://192.168.1.5:5000/api/main/categories?userId=${userId}`, {
                 method: "GET",
                 credentials: "include" // Send cookies with request
             });  
@@ -80,7 +80,7 @@ useEffect(()=>{
             return;
         }
         try{
-            const res = await fetch(`http://localhost:5000/api/main/dishes?categoryId=${selectedProduct._id}`, {
+            const res = await fetch(`http://192.168.1.5:5000/api/main/dishes?categoryId=${selectedProduct._id}`, {
                 method: "GET",
                 credentials: "include", // Send cookies with request
             });  
@@ -103,7 +103,7 @@ useEffect(()=>{
     const fetchSlug = async() => {
         if(!userId) return;
         try{
-        const res = await fetch(`http://localhost:5000/api/main/get?userId=${userId}`, {
+        const res = await fetch(`http://192.168.1.5:5000/api/main/get?userId=${userId}`, {
                 method: "GET",
                 credentials: "include"
             });  
@@ -148,7 +148,7 @@ useEffect(() => {
             formData.append("avatar", file);
             formData.append("name", catin);
             formData.append("userId", userId);
-            const res = await fetch("http://localhost:5000/api/main/categories", {
+            const res = await fetch("http://192.168.1.5:5000/api/main/categories", {
                 method: "POST",
                 credentials: "include",
                 body: formData,
@@ -190,7 +190,7 @@ useEffect(() => {
         formData.append("avatar", dishPhoto);
         formData.append("price", dishPrice);
 
-        const response = await fetch("http://localhost:5000/api/main/dishes", {
+        const response = await fetch("http://192.168.1.5:500/api/main/dishes", {
             method: "POST",
             credentials: "include",
             body: formData,
@@ -233,7 +233,7 @@ useEffect(() => {
   setLoadingModal(true);
   try {
     if (deleteType === 'cat') {
-      const res = await fetch("http://localhost:5000/api/main/categories", {
+      const res = await fetch("http://192.168.1.5:5000/api/main/categories", {
         method: "DELETE",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
@@ -248,7 +248,7 @@ useEffect(() => {
         setSelectedProduct(cat[0]);
       }
     } else if (deleteType === 'dish') {
-      const res = await fetch("http://localhost:5000/api/main/dishes", {
+      const res = await fetch("http://192.168.1.5:5000/api/main/dishes", {
         method: "DELETE",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
@@ -282,7 +282,7 @@ useEffect(() => {
     const ConfirmPrice = async() => {
         setLoadingModal(true);
         try{
-            const res = await fetch("http://localhost:5000/api/main/dishes", {
+            const res = await fetch("http://192.168.1.5:5000/api/main/dishes", {
                 method: "PUT",
                 credentials:"include",
                 headers: { "Content-Type": "application/json" },
@@ -316,12 +316,10 @@ useEffect(() => {
     }
     
     const confirmSignOut = async() => {
-        /*
-        const { error } = await supabase.auth.signOut();
-        if (error) {
-            console.error("Sign out error:", error.message);
-        }
-        sessionStorage.removeItem("userId");*/
+        await fetch("http://192.168.1.5:5000/api/auth/logout", {
+    method: "POST",
+    credentials: "include",
+  });
         navigate("/login");
     };
     return(
@@ -346,7 +344,7 @@ useEffect(() => {
                 <h4>Sidebar: Categories</h4>
                 {slug && (
                     <div className={styles.logo}>
-                    <img src={`http://localhost:5000${slug.avatar}`} alt={slug.username} />
+                    <img src={`http://192.168.1.5:5000${slug.avatar}`} alt={slug.username} />
                     <h3>{slug.username?.toUpperCase()}</h3>
                 </div>)}
                 <button onClick={handle} className={styles.addcat}><span><b>+</b></span> add categorie</button>
@@ -406,7 +404,7 @@ useEffect(() => {
             
                 {selectedProduct ? (
                     <div className={styles.left_center}>
-                    <img src={`http://localhost:5000${selectedProduct.avatar}`} alt={selectedProduct.name} />
+                    <img src={`http://192.168.1.5:5000${selectedProduct.avatar}`} alt={selectedProduct.name} />
                     <h4> product: {selectedProduct.name}</h4>
                 </div>
                 ):(
@@ -425,7 +423,7 @@ useEffect(() => {
                 
                 <button className={styles.add} onClick={addDish}>Add new Dish</button>
                 <div className={styles.west}>
-                    <QRCodeDownload className={styles.qr} restaurantUrl={`https://menu-iota-two.vercel.app/code/${slug.slug}`} />
+                    <QRCodeDownload className={styles.qr} restaurantUrl={`http://192.168.1.5:5173/code/${slug.slug}`} />
                     <Link to={`/code/${slug.slug}`}><button className={styles.show}>see menu <i className="fas fa-book-open"></i></button></Link>
                 </div>
                 {popDish && (

@@ -14,7 +14,7 @@ function Code() {
             if(!slug)return;
             try {
                 // 1. Get restaurant by slug
-                const res = await fetch(`http://localhost:5000/api/menu?slug=${slug}`, {
+                const res = await fetch(`http://192.168.1.5:5000/api/menu?slug=${slug}`, {
                 method: "GET"
             });  
             const data = await res.json();
@@ -44,7 +44,7 @@ function Code() {
             <div className={`${styles["header-center"]} ${styles.sticky_header}`}>
                 {restaurant ? (
                     <div className={styles.inside}>
-                    <img src={`http://localhost:5000${restaurant.avatar}`} alt={restaurant.username} />
+                    <img src={`http://192.168.1.5:5000${restaurant.avatar}`} alt={restaurant.username} />
                     <h3>{restaurant.username}</h3>
                 </div>
                 ) : (

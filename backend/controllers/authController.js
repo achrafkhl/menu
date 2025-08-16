@@ -84,3 +84,13 @@ export const getInfo = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 }
+
+export const logOut = async(req,res) => {
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+    path: "/"
+  });
+  res.json({ message: "Logged out successfully" });
+}

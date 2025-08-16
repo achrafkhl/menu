@@ -20,7 +20,7 @@ function App() {
         <Route path='/code/:slug' element={<Code/>}/>
         <Route path='/reset' element={<Reset/>}/>
         
-        <Route path='/main' element={<Main/>}/>
+        <Route path='/main' element={<PrivateRoute><Main/></PrivateRoute>}/>
         <Route path='*' element={<h1>404 Not Found</h1>} />
       </Routes>
     </Router>

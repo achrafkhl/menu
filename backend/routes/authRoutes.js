@@ -2,7 +2,7 @@ import express from "express";
 import multer from "multer";
 import path from "path";
 import { fileURLToPath } from "url";
-import { signup, login, getInfo} from "../controllers/authController.js";
+import { signup, login, getInfo,logOut} from "../controllers/authController.js";
 import { authMiddleware } from "../middleware/authMiddleware.js";
 const router = express.Router();
 
@@ -28,5 +28,6 @@ router.get("/main", authMiddleware, (req, res) => {
   res.json({ user: `${req.user.id}` });
 });
 router.get("/main/get",authMiddleware, getInfo);
+router.post("/auth/logout",logOut);
 
 export default router;
