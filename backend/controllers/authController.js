@@ -34,6 +34,10 @@ export const signup = async (req, res) => {
     });
     console.log(`User ${username} signed up successfully`);
     const token = jwt.sign({email} , process.env.JWT_SECRET, { expiresIn: "1h" });
+    await db.collection("users").updateOne(
+  { email },
+  { $set: { resetToken: token } }
+);
     const verificationLink = `http://192.168.1.5:5000/api/auth/verify?token=${token}`;
     await sendMail(
     email,
@@ -123,12 +127,23 @@ export const verifyEmail = async (req, res) => {
   }
 
   try {
+    // Decode the token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    // Update user to verified = true
+    // Find user with matching email and resetToken
+    const user = await db.collection("users").findOne({
+      email: decoded.email,
+      resetToken: token
+    });
+
+    if (!user) {
+      return res.redirect("http://192.168.1.5:5173/verify-failed");
+    }
+
+    // Update user to verified = true and remove the token
     await db.collection("users").updateOne(
       { email: decoded.email },
-      { $set: { verified: true } }
+      { $set: { verified: true }, $unset: { resetToken: "" } }
     );
 
     // Redirect to frontend success page
@@ -138,6 +153,7 @@ export const verifyEmail = async (req, res) => {
     res.redirect("http://192.168.1.5:5173/verify-failed");
   }
 };
+
 
 export const deleteUser = async(req,res)=>{
     const {id} = req.body;
@@ -155,3 +171,66 @@ export const deleteUser = async(req,res)=>{
         res.status(500).json({ error: "Internal Server Error" });
     }
 }
+
+export const forgetPassword = async (req, res) => {
+  const { email } = req.body; // use POST
+  try {
+    const user = await db.collection("users").findOne({ email });
+    if (!user) return res.status(404).json({ error: "User not found" });
+
+    const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: "1h" });
+    await db.collection("users").updateOne(
+  { email },
+  { $set: { resetToken: token } }
+);
+    const resetLink = `http://192.168.1.5:5173/reset?token=${token}`;
+
+    await sendMail(
+      email,
+      "Reset your password",
+      `<h2>Reset Password</h2>
+      <p>Click the link to reset your password:</p>
+      <p><a href="${resetLink}">Reset Password</a></p>`
+    );
+
+    res.status(200).json({ message: "Reset email sent successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+export const resetPassword = async (req, res) => {
+  const { token, newPassword } = req.body;
+  if (!token || !newPassword)
+    return res.status(400).json({ error: "Token and password required" });
+
+  try {
+    // decode the token without verifying expiration yet
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    // find user with the same email and the same reset token
+    const user = await db.collection("users").findOne({
+      email: decoded.email,
+      resetToken: token
+    });
+
+    if (!user) {
+      return res.status(400).json({ error: "Invalid or expired token" });
+    }
+
+    // hash new password
+    const hashedPassword = bcrypt.hashSync(newPassword, 10);
+
+    // update password and remove the reset token
+    await db.collection("users").updateOne(
+      { email: decoded.email },
+      { $set: { password: hashedPassword }, $unset: { resetToken: "" } }
+    );
+
+    res.status(200).json({ message: "Password reset successfully" });
+  } catch (err) {
+    console.error(err);
+    res.status(400).json({ error: "Invalid or expired token" });
+  }
+};

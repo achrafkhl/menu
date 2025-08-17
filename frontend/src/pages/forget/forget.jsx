@@ -1,85 +1,78 @@
-import { useState,useEffect } from "react";
-import { Link,useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./forget.module.css";
-import supabase from "../../config/supabaseClient";
+
 function Forget() {
-    const [email, setEmail] = useState("");
+  const [email, setEmail] = useState("");
+  const navigate = useNavigate();
 
+  const forgett = async () => {
+    if (!email) return alert("You need to enter an email");
 
-    const [user, setUser] = useState([]);
-    const navigate = useNavigate();
-    useEffect(() => {
-        const fetData = async () => {
-            const { data, error } = await supabase.from("profiles").select("*");
-            if (error) {
-                console.log("There is an error:", error);
-                setUser([]);
-            }
-            if (data) {
-                setUser(data);
-            }
-        };
-        fetData();
-    }, []);
+    // Clear previous error
+    const oldErr = document.getElementById("err-mail");
+    if (oldErr) oldErr.remove();
+    document.getElementById("forget-email").style.border = "solid 1px grey";
 
-    const forgett = async () => {
-            const used = user.find((user) => user.email?.toLowerCase() === email.toLowerCase());
-            if (!used) {
-                document.getElementById("imail").innerHTML = "<p style='color:red;'>No account found with this email.</p>";
-                return;
-            }
+    try {
+      const res = await fetch("http://192.168.1.5:5000/api/auth/forget-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
 
-            const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-                redirectTo: `${window.location.origin}/reset`,
-            });
+      const data = await res.json();
 
-            if (error) {
-                alert("Error sending reset email: " + error.message);
-            }
-            if (data) {
-                localStorage.setItem("userEmail", email);
-                alert("Check your email for the password reset link.");
-                navigate("/login");
-            }
-        
-    };
+      if (res.ok) {
+        alert("Reset email sent");
+        navigate("/login");
+      } else if (data.message === "user not found") {
+        const par = document.getElementById("imail");
+        const err = document.createElement("p");
+        err.id = "err-mail";
+        err.style.color = "red";
+        err.innerText = "User not found";
+        par.appendChild(err);
+        document.getElementById("forget-email").style.border = "solid 2px red";
+      } else {
+        console.log(data.error || "Sending failed");
+      }
+    } catch (err) {
+      alert("Error connecting to server");
+      console.log(err);
+    }
+  };
 
+  return (
+    <div className={styles.body}>
+      <div className={styles.c1}></div>
+      <div className={styles.c2}></div>
+      <div className={styles.c3}></div>
+      <div className={styles.c4}></div>
+      <div className={styles.c5}></div>
 
-
-
-    return (
-        <div className={styles.body}>
-            <div className={styles.c1}></div>
-            <div className={styles.c2}></div>
-            <div className={styles.c3}></div>
-            <div className={styles.c4}></div>
-            <div className={styles.c5}></div>
-            <div className={styles.container} id="container">
-                <h1>Update password</h1>
-                <div className={styles.up}>
-
-                </div>
-                <div className={styles.all}>
-
-                        <div className={styles.email}>
-                            <p>We will send you an email with instructions on how to reset your password.</p>
-                            <input
-                                type="email"
-                                id="forget-email"
-                                placeholder="name@example.com"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                            />
-                            <div id="imail"></div>
-                        </div>
-                    <div className={styles.actions}>
-  <button className={styles.but} onClick={forgett}>Enter</button>
-  <Link to="/login" className={styles.back}>Back to login</Link>
-</div>
-                </div>
-            </div>
+      <div className={styles.container}>
+        <h1>Update password</h1>
+        <div className={styles.all}>
+          <div className={styles.email}>
+            <p>We will send you an email with instructions on how to reset your password.</p>
+            <input
+              type="email"
+              id="forget-email"
+              placeholder="name@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <div id="imail"></div>
+          </div>
+          <div className={styles.actions}>
+            <button className={styles.but} onClick={forgett}>Enter</button>
+            <Link to="/login" className={styles.back}>Back to login</Link>
+          </div>
         </div>
-    );
+      </div>
+    </div>
+  );
 }
 
 export default Forget;

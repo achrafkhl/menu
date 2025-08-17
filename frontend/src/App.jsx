@@ -19,7 +19,7 @@ function App() {
         <Route path='/' element={<Home/>}/>
         <Route path='/code/:slug' element={<Code/>}/>
         <Route path='/reset' element={<Reset/>}/>
-        
+        <Route path="/reset-failed" element={<h1>Reset Password Failed ❌</h1>} />
         <Route path='/main' element={<PrivateRoute><Main/></PrivateRoute>}/>
         <Route path='*' element={<h1>404 Not Found</h1>} />
         <Route path="/verified" element={<h1>Email Verified ✅</h1>} />

@@ -2,7 +2,7 @@ import express from "express";
 import multer from "multer";
 import path from "path";
 import { fileURLToPath } from "url";
-import { signup, login, getInfo,logOut,verifyEmail,deleteUser} from "../controllers/authController.js";
+import { signup, login, getInfo,logOut,verifyEmail,deleteUser,forgetPassword,resetPassword} from "../controllers/authController.js";
 import { authMiddleware } from "../middleware/authMiddleware.js";
 const router = express.Router();
 
@@ -32,4 +32,6 @@ router.post("/auth/logout",authMiddleware,logOut);
 router.get("/auth/verify",verifyEmail);
 
 router.delete("/delete",deleteUser);
+router.post("/auth/forget-password", forgetPassword);
+router.post("/auth/reset-password", resetPassword);
 export default router;

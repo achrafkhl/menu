@@ -13,7 +13,7 @@ const transporter = nodemailer.createTransport({
 export const sendMail = async (to, subject, html) => {
   try {
     await transporter.sendMail({
-      from: `"My App" <${process.env.EMAIL_USER}>`,
+      from: `"Quick Menu" <${process.env.EMAIL_USER}>`,
       to,
       subject,
       html,

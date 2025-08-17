@@ -1,64 +1,86 @@
+import { useState, useEffect, useRef } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { FaSpinner } from "react-icons/fa";
 import styles from "./reset.module.css";
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import supabase from "../../config/supabaseClient";
+
 function Reset() {
-  const [pass, setPass] = useState("");
+  const [password, setPassword] = useState("");
   const [conf, setConf] = useState("");
-  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const location = useLocation();
   const navigate = useNavigate();
+  const passRef = useRef(null);
 
- useEffect(() => {
-    const checkSession = async () => {
-      const { data: { session }, error } = await supabase.auth.getSession();
+  const params = new URLSearchParams(location.search);
+  const token = params.get("token");
 
-      if (error || !session || !session.user) {
-        alert("No authenticated reset session found. Please use the reset link from your email.");
+  // Redirect immediately if token is missing
+  useEffect(() => {
+    if (!token) {
+      navigate("/reset-failed");
+    }
+  }, [token, navigate]);
+
+  // auto-focus first input
+  useEffect(() => {
+    passRef.current?.focus();
+  }, []);
+
+  const handleReset = async () => {
+    setError("");
+
+    if (!password || !conf) {
+      return setError("Please fill all fields");
+    }
+    if (password.length < 8) {
+      return setError("Password must be at least 8 characters");
+    }
+    if (password !== conf) {
+      return setError("Passwords do not match");
+    }
+
+    setLoading(true);
+    try {
+      const res = await fetch("http://192.168.1.5:5000/api/auth/reset-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token, newPassword: password }),
+      });
+      const data = await res.json();
+
+      if (res.ok) {
+        alert(data.message);
         navigate("/login");
       } else {
-        setUser(session.user);
+        setError(data.error || "Reset failed");
       }
-    };
-
-    checkSession();
-  }, [navigate]); 
-
-  const conff = async () => {
-    if (pass !== conf) {
-      alert("Passwords do not match!");
-      return;
-    }
-
-    if (!user) {
-      alert("User not authenticated. Please use the reset link from your email.");
-      return;
-    }
-
-    const { error } = await supabase.auth.updateUser({ password: pass });
-
-    if (error) {
-      alert("Error updating password: " + error.message);
-    } else {
-      alert("Password updated successfully! Please log in.");
-      await supabase.auth.signOut();
-      navigate("/login");
+    } catch (err) {
+      console.error(err);
+      setError("Something went wrong");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className={styles.body}>
-        <div className={styles.c1}></div>
-                    <div className={styles.c2}></div>
-                    <div className={styles.c3}></div>
-                    <div className={styles.c4}></div>
-                    <div className={styles.c5}></div>
+      <div className={styles.c1}></div>
+      <div className={styles.c2}></div>
+      <div className={styles.c3}></div>
+      <div className={styles.c4}></div>
+      <div className={styles.c5}></div>
+
       <div className={styles.conf} id="confirmation">
+        <h1>Reset Password</h1>
         <input
           type="password"
           placeholder="New password"
           id="forget-pass"
-          value={pass}
-          onChange={(e) => setPass(e.target.value)}
+          ref={passRef}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          disabled={loading}
         />
         <input
           type="password"
@@ -66,8 +88,17 @@ function Reset() {
           id="forget-conf"
           value={conf}
           onChange={(e) => setConf(e.target.value)}
+          disabled={loading}
         />
-        <button className={styles.but} onClick={conff}>Confirm</button>
+        {error && <p style={{ color: "red", marginTop: 5 }}>{error}</p>}
+        <button
+          className={styles.but}
+          onClick={handleReset}
+          disabled={loading || !password || !conf}
+          style={loading ? { opacity: 0.7, cursor: "not-allowed" } : {}}
+        >
+          {loading ? <FaSpinner className={styles.spinner} /> : "Reset Password"}
+        </button>
       </div>
     </div>
   );
