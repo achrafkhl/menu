@@ -160,6 +160,8 @@ useEffect(() => {
             }
             setCat(prev => [...prev, data.category]);
             console.log("category created successfully");
+            setFile("");
+            setCatin("");
             setPop(false);
         }
         catch(error){
@@ -207,6 +209,9 @@ useEffect(() => {
         console.log("Dish created successfully");
         setDish(prev => [...prev, data.dish]);
         setReload(prev => !prev);
+        setDishin("");
+        setDishPhoto("");
+        setDishPrice("");
         setPopDish(false);
     } catch (error) {
         console.error("Error creating dish:", error);
@@ -372,16 +377,6 @@ useEffect(() => {
       </div>
     </div>
   </div>
-                    /*<div className={styles.in}>
-                        <input className={styles.citib} id="catin" type="text" placeholder="enter a category" value={catin} onChange={(e) => setCatin(e.target.value)}/>
-                        <div className={styles.inside}>
-                            <label className={styles["file-label"]} htmlFor="catphoto">Enter a photo</label>
-                            <input className={styles.catphoto} id="catphoto" type="file" onChange={(e) => setFile(e.target.files[0])}/>
-                            {file && <span className={styles["selected-file"]}>{file.name}</span>}
-                        </div>
-                        <button className={styles.submit} onClick={submit}>submit</button>
-                        <button className={styles.cancel} onClick={cancel}>cancel</button>
-                    </div>*/
                 )}
                 <div className={styles.cat}>
                         {cat.length>0 ? (

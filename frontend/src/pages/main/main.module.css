@@ -274,6 +274,7 @@
 
 
 .radio {
+  width: fit-content;
   margin-bottom: 8px;
   display: flex;
   align-items: center;

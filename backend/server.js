@@ -61,6 +61,11 @@ app.get("/api/auth/validate", authMiddleware, (req, res) => {
 
 app.get("/", (req, res) => res.send("Welcome to the backend server!"));
 
+
+app.listen(5000, () => {
+  console.log("HTTP server running on http://192.168.1.5:5000");
+})
+/*
 const sslOptions = {
   key: fs.readFileSync("./certs/key.pem"),
   cert: fs.readFileSync("./certs/cert.pem"),
@@ -80,4 +85,4 @@ httpApp.use((req, res) => {
 
 http.createServer(httpApp).listen(5000, () => {
   console.log("HTTP server running on http://192.168.1.5:5000 and redirecting to HTTPS");
-});
+});*/
